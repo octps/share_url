@@ -1,0 +1,1 @@
+create database share_url DEFAULT CHARACTER SET utf8;
