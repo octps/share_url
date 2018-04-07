@@ -24,6 +24,7 @@
       </header>
       <div class="container">
         <p><a href="/login.php">login</a></p>
+        <p><a href="/twitter_login.php">twitter login</a></p>
         <p><a href="/signin.php">signin</a></p>
       </div><!-- /container -->
       <footer>
