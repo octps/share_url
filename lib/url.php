@@ -3,11 +3,18 @@
   require_once(dirname(__FILE__) . '/./db.php');
 
   if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    header("locaiont:/404.php");
-    exit;
+    $get = $_GET;
+    if (!isset($get['id'])
+      || !is_numeric($get['id'])
+    ) {
+      header("location:/404.php");
+      exit;
+    }
+    $results = url::get();
   }
-
-  url::post_validation();
+  elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
+    url::post_validation();
+  }
 
   class url {
     public static function post_validation() {
@@ -76,6 +83,23 @@
       
       header("location: /members/index.php");
 
+    }
+
+    public static function get() {
+      $dbh = Db::getInstance();
+      $get = $_GET;
+      try {
+        $dbh->beginTransaction();
+        $stmt = $dbh -> prepare ("select u.id, u.user_id, u.url, c.comment from urls as u join comments as c on u.user_id = c.user_id and u.id = c.url_id where c.url_id = :url_id ");
+        $stmt->bindParam(':url_id', $get['id'], PDO::PARAM_STR);
+        $stmt->execute();
+        $dbh->commit();
+      } catch (Exception $e) {
+        $dbh->rollBack();
+        echo "例外キャッチ：", $e->getMessage(), "\n";
+      }
+      $results = $stmt->fetchAll();
+      return $results;
     }
 
   }
