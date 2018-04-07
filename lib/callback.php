@@ -45,5 +45,5 @@
   }
 
   //マイページへリダイレクト
-  header( 'location: /members/index.php');
+  header('location: /members/index.php');
 ?>

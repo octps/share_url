@@ -35,9 +35,18 @@
             <div><label>url:<input type="text" name="url" value=""></label></div>
             <div><label>comment:<input type="text" name="comment" value=""></label></div>
             <input type="submit" value="登録">
-            <input type="hidden" name="id" value="<?= $_SESSION['user_id'] ?>">
             <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
           </form>
+        </div>
+        <div>
+          <? foreach($results as $result): ?>
+            <div>
+              [id]<span><?= $result['id']; ?></span>
+              [user_id]<span><?= $result['user_id']; ?></span>
+              [url]<span><?= $result['url']; ?></span>
+              [comment]<span><?= $result['comment']; ?></span>
+            </div>
+          <? endforeach; ?>
         </div>
       </div><!-- /container -->
 

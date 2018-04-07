@@ -22,12 +22,6 @@
       }
 
       $error = array();
-      if (!isset($post['id'])
-        || @$post['id'] == ""
-        || !is_numeric($post['id'])
-      ) {
-        $error["id"] = "id_error";
-      }
 
       if (!isset($post['url'])
         || @$post['url'] == ""
@@ -54,15 +48,30 @@
 
       try {
         $dbh->beginTransaction();
-        $stmt = $dbh -> prepare ("insert into urls (user_id, url, comment, created_at) values (:user_id, :url, :comment, null);");
-        $stmt->bindParam(':user_id', $post['id'], PDO::PARAM_STR);
+        $stmt = $dbh -> prepare ("insert into urls (user_id, url, created_at) values (:user_id, :url, null);");
+        $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_STR);
         $stmt->bindParam(':url', $post['url'], PDO::PARAM_STR);
+        $stmt->execute();
+        $url_id = $dbh->lastInsertId('id');
+        $dbh->commit();
+      } catch (Exception $e) {
+        $dbh->rollBack();
+        echo "例外キャッチ：", $e->getMessage(), "\n";
+        exit;
+      }
+
+      try {
+        $dbh->beginTransaction();
+        $stmt = $dbh -> prepare ("insert into comments (user_id, url_id, comment, created_at) values (:user_id, :url_id, :comment, null);");
+        $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_STR);
+        $stmt->bindParam(':url_id', $url_id, PDO::PARAM_STR);
         $stmt->bindParam(':comment', $post['comment'], PDO::PARAM_STR);
         $stmt->execute();
         $dbh->commit();
       } catch (Exception $e) {
         $dbh->rollBack();
         echo "例外キャッチ：", $e->getMessage(), "\n";
+        exit;
       }
       
       header("location: /members/index.php");
