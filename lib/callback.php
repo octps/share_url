@@ -2,6 +2,7 @@
   session_start();
   require_once(dirname(__FILE__) . '/./config.php');
   require_once(dirname(__FILE__) . '/../vendor/autoload.php');
+  require_once(dirname(__FILE__) . '/./db.php');
 
   use Abraham\TwitterOAuth\TwitterOAuth;
 
@@ -24,8 +25,24 @@
   ちなみに、この変数の中に、OAuthトークンとトークンシークレットが配列となって入っています。
   */
 
+  $_SESSION['user_id'] = $_SESSION['access_token']['user_id'];
+  $_SESSION['user_name'] = $_SESSION['access_token']['screen_name'];
+
   //セッションIDをリジェネレート
   session_regenerate_id();
+
+  $dbh = Db::getInstance();
+  try {
+    $dbh->beginTransaction();
+    $stmt = $dbh -> prepare ("insert into twitter_users (id, name, created_at) values (:id, :name, null);");
+    $stmt->bindParam(':id', $_SESSION['user_id'], PDO::PARAM_STR);
+    $stmt->bindParam(':name', $_SESSION['user_name'], PDO::PARAM_STR);
+    $stmt->execute();
+    $dbh->commit();
+  } catch (Exception $e) {
+    $dbh->rollBack();
+    echo "例外キャッチ：", $e->getMessage(), "\n";
+  }
 
   //マイページへリダイレクト
   header( 'location: /members/index.php');

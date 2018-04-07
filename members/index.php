@@ -25,8 +25,7 @@
       </header>
       <div class="container">
         <p>members index</p>
-        <p><? print_r($_SESSION['user_id']); ?></p>
-        <p><? print_r($_SESSION['user_name']); ?></p>
+        <p><?= $_SESSION['user_name']; ?></p>
 
         <div>
           <form action="/url/post.php" method="post">
