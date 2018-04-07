@@ -1,6 +1,6 @@
 <?php
-  require_once(dirname(__FILE__) . '/../lib/checklogin.php');
-  require_once(dirname(__FILE__) . '/../lib/members/index.php');
+  // require_once(dirname(__FILE__) . '/../lib/checklogin.php');
+  require_once(dirname(__FILE__) . '/../lib/members/detail.php');
 ?>
 <!doctype html>
 <html lang="ja">
@@ -25,23 +25,11 @@
       </header>
       <div class="container">
         <p>members index</p>
-        <p><?= $_SESSION['user_name']; ?></p>
-
-        <div>
-          <form action="/url/post.php" method="post">
-            <? if (@$error["url"] == "url_error" ): ?>
-            <p></p<?= @$error["url"] ?>>
-            <? endif; ?>
-            <div><label>url:<input type="text" name="url" value=""></label></div>
-            <div><label>comment:<input type="text" name="comment" value=""></label></div>
-            <input type="submit" value="登録">
-            <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-          </form>
-        </div>
+        <p><?= @$_SESSION['user_name']; ?></p>
         <div>
           <? foreach($results as $result): ?>
             <div>
-              [id]<span><a href="/members/detail.php?id=<?= $result['id']; ?>"><?= $result['id']; ?></a></span>
+              [id]<span><?= $result['id']; ?></span>
               [user_id]<span><?= $result['user_id']; ?></span>
               [url]<span><?= $result['url']; ?></span>
               [comment]<span><?= $result['comment']; ?></span>
