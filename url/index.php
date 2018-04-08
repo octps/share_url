@@ -29,7 +29,6 @@
           <? foreach($results as $result): ?>
             <div>
               [id]<span><?= $result['id']; ?></span>
-              [user_id]<span><?= $result['user_id']; ?></span>
               [url]<span><?= $result['url']; ?></span>
               [comment]<span><?= $result['comment']; ?></span>
             </div>
