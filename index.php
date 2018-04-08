@@ -25,9 +25,9 @@
       <div class="container">
         <? if (false): ?>
         <p><a href="/login.php">login</a></p>
+        <p><a href="/signin.php">signin</a></p>
         <? endif; ?>
         <p><a href="/twitter_login.php">twitter login</a></p>
-        <p><a href="/signin.php">signin</a></p>
       </div><!-- /container -->
       <footer>
         footer
