@@ -26,13 +26,13 @@
       <div class="container">
         <p>url detail</p>
         <div>
-          <? foreach($results as $result): ?>
             <div>
-              [id]<span><?= $result['id']; ?></span>
-              [url]<span><?= $result['url']; ?></span>
-              [comment]<span><?= $result['comment']; ?></span>
+              [id]<span><?= $results[0]['id']; ?></span>
+              [url]<span><?= $results[0]['url']; ?></span><br>
+              <? foreach($results as $result): ?>
+                [comment]<span><?= $result['comment']; ?></span><br>
+              <? endforeach; ?>
             </div>
-          <? endforeach; ?>
         </div>
       </div><!-- /container -->
 

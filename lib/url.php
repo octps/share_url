@@ -52,19 +52,34 @@
     public static function post() {
       $post = $_POST;
       $dbh = Db::getInstance();
-
+      //重複チェック
       try {
         $dbh->beginTransaction();
-        $stmt = $dbh -> prepare ("insert into urls (user_id, url, created_at) values (:user_id, :url, null);");
-        $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_STR);
+        $stmt = $dbh -> prepare ("select id,url from urls where url = :url;");
         $stmt->bindParam(':url', $post['url'], PDO::PARAM_STR);
         $stmt->execute();
-        $url_id = $dbh->lastInsertId('id');
         $dbh->commit();
       } catch (Exception $e) {
         $dbh->rollBack();
         echo "例外キャッチ：", $e->getMessage(), "\n";
-        exit;
+      }
+      $results = $stmt->fetchAll();
+      if (isset($results[0]['id'])) {
+        $url_id = $results[0]['id'];
+      } else {
+        try {
+          $dbh->beginTransaction();
+          $stmt = $dbh -> prepare ("insert into urls (user_id, url, created_at) values (:user_id, :url, null);");
+          $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_STR);
+          $stmt->bindParam(':url', $post['url'], PDO::PARAM_STR);
+          $stmt->execute();
+          $url_id = $dbh->lastInsertId('id');
+          $dbh->commit();
+        } catch (Exception $e) {
+          $dbh->rollBack();
+          echo "例外キャッチ：", $e->getMessage(), "\n";
+          exit;
+        }
       }
 
       try {

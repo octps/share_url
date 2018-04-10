@@ -40,12 +40,14 @@
           </form>
         </div>
         <div>
-          <? foreach($results as $result): ?>
+          <? foreach($contents as $content): ?>
             <div>
-              [id]<span><a href="/url/?id=<?= $result['id']; ?>"><?= $result['id']; ?></a></span>
-              [user_id]<span><?= $result['user_id']; ?></span>
-              [url]<span><?= $result['url']; ?></span>
-              [comment]<span><?= $result['comment']; ?></span>
+              [id]<span><a href="/url/?id=<?= $content[0]['id']; ?>"><?= $content[0]['id']; ?></a></span>
+              [user_id]<span><?= $content[0]['user_id']; ?></span>
+              [url]<span><?= $content[0]['url']; ?></span><br>
+              <? foreach ($content as $comment): ?>
+              [comment]<span><?= $comment['comment']; ?></span><br>
+              <? endforeach; ?>
             </div>
           <? endforeach; ?>
         </div>
