@@ -40,7 +40,7 @@
           </form>
         </div>
         <div>
-          <? foreach($contents as $content): ?>
+          <? foreach(@$contents ?: array() as $content): ?>
             <div>
               [id]<span><a href="/url/?id=<?= $content[0]['id']; ?>"><?= $content[0]['id']; ?></a></span>
               [user_id]<span><?= $content[0]['user_id']; ?></span>

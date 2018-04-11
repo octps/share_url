@@ -55,7 +55,7 @@
       //重複チェック
       try {
         $dbh->beginTransaction();
-        $stmt = $dbh -> prepare ("select id,url from urls where url = :url;");
+        $stmt = $dbh -> prepare ("select id, url from urls where url = :url;");
         $stmt->bindParam(':url', $post['url'], PDO::PARAM_STR);
         $stmt->execute();
         $dbh->commit();
@@ -69,8 +69,7 @@
       } else {
         try {
           $dbh->beginTransaction();
-          $stmt = $dbh -> prepare ("insert into urls (user_id, url, created_at) values (:user_id, :url, null);");
-          $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_STR);
+          $stmt = $dbh -> prepare ("insert into urls (url, created_at) values (:url, null);");
           $stmt->bindParam(':url', $post['url'], PDO::PARAM_STR);
           $stmt->execute();
           $url_id = $dbh->lastInsertId('id');
@@ -105,7 +104,7 @@
       $get = $_GET;
       try {
         $dbh->beginTransaction();
-        $stmt = $dbh -> prepare ("select u.id, u.user_id, u.url, c.comment from urls as u join comments as c on u.user_id = c.user_id and u.id = c.url_id where c.url_id = :url_id ");
+        $stmt = $dbh -> prepare ("select u.id, u.url, c.comment from urls as u join comments as c on u.id = c.url_id where c.url_id = :url_id ");
         $stmt->bindParam(':url_id', $get['id'], PDO::PARAM_STR);
         $stmt->execute();
         $dbh->commit();

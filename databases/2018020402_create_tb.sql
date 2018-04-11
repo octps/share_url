@@ -23,7 +23,6 @@ ALTER TABLE users AUTO_INCREMENT = 1001;
 
 create table urls (
     id INTEGER PRIMARY KEY AUTO_INCREMENT
-    , user_id BIGINT NOT NULL
     , url varchar(256) NOT NULL
     , created_at TIMESTAMP NOT NULL DEFAULT 0
     , updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW()
