@@ -45,6 +45,7 @@
               [id]<span><a href="/url/?id=<?= $content[0]['id']; ?>"><?= $content[0]['id']; ?></a></span>
               [user_id]<span><?= $content[0]['user_id']; ?></span>
               [url]<span><?= $content[0]['url']; ?></span><br>
+              [title]<span><?= $content[0]['title']; ?></span><br>
               <? foreach ($content as $comment): ?>
               [comment]<span><?= $comment['comment']; ?></span><br>
               <? endforeach; ?>

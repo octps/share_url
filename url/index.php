@@ -29,6 +29,7 @@
             <div>
               [id]<span><?= $results[0]['id']; ?></span>
               [url]<span><?= $results[0]['url']; ?></span><br>
+              [title]<span><?= $results[0]['title']; ?></span><br>
               <? foreach($results as $result): ?>
                 [comment]<span><?= $result['comment']; ?></span><br>
               <? endforeach; ?>

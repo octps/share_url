@@ -10,7 +10,7 @@
   $dbh = Db::getInstance();
   try {
     $dbh->beginTransaction();
-    $stmt = $dbh -> prepare ("select u.id, u.url, c.user_id, c.comment from urls as u join comments as c on u.id = c.url_id where c.user_id = :user_id order by c.updated_at DESC");
+    $stmt = $dbh -> prepare ("select u.id, u.url, u.title, c.user_id, c.comment from urls as u join comments as c on u.id = c.url_id where c.user_id = :user_id order by c.updated_at DESC");
     $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_STR);
     $stmt->execute();
     $dbh->commit();

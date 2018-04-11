@@ -67,10 +67,19 @@
       if (isset($results[0]['id'])) {
         $url_id = $results[0]['id'];
       } else {
+        $url = $post['url'];
+        $source = @file_get_contents($url);
+        if (preg_match('/<title>(.*?)<\/title>/i', mb_convert_encoding($source, 'UTF-8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS'), $result)) {
+          $title = $result[1];
+        } else {
+        //TITLEタグが存在しない場合
+          $title = $url;
+        }
         try {
           $dbh->beginTransaction();
-          $stmt = $dbh -> prepare ("insert into urls (url, created_at) values (:url, null);");
+          $stmt = $dbh -> prepare ("insert into urls (url, title, created_at) values (:url, :title, null);");
           $stmt->bindParam(':url', $post['url'], PDO::PARAM_STR);
+          $stmt->bindParam(':title', $title, PDO::PARAM_STR);
           $stmt->execute();
           $url_id = $dbh->lastInsertId('id');
           $dbh->commit();
@@ -104,7 +113,7 @@
       $get = $_GET;
       try {
         $dbh->beginTransaction();
-        $stmt = $dbh -> prepare ("select u.id, u.url, c.comment from urls as u join comments as c on u.id = c.url_id where c.url_id = :url_id ");
+        $stmt = $dbh -> prepare ("select u.id, u.url, u.title, c.comment from urls as u join comments as c on u.id = c.url_id where c.url_id = :url_id ");
         $stmt->bindParam(':url_id', $get['id'], PDO::PARAM_STR);
         $stmt->execute();
         $dbh->commit();
