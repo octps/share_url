@@ -11,27 +11,29 @@
     <link rel="icon" href="/images/favicon.ico">
 
     <!-- Bootstrap読み込み（スタイリングのため） -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="/css/index.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
     <title>share_url</title>
 
   </head>
 
-  <body>
-    <div class="col-xs-6 col-xs-offset-3">
-      <header>
-        header
-      </header>
-      <div class="container">
-        <? if (false): ?>
-        <p><a href="/login.php">login</a></p>
-        <p><a href="/signin.php">signin</a></p>
-        <? endif; ?>
-        <p><a href="/twitter_login.php">twitter login</a></p>
-      </div><!-- /container -->
-      <footer>
-        footer
-      </footer>
+  <body class="root">
+    <h1 class="center">share urls</h1>
+    <div class = "container">
+      <p class="center">share urlsは、urlsをシェアするwebサービスです。</p>
+      <div class="wrapper">
+        <div class="form-signin">
+          <h3 class="form-signin-heading">Please Log In</h3>
+          <p><a class="btn btn-lg btn-primary btn-block" href="/twitter_login.php">twitter login</a></p>
+        </div>
+      </div>
     </div>
+    <footer>
+      copylight : share ulrs
+    </footer>
+
   </body>
 </html>
