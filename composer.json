@@ -1,5 +1,17 @@
 {
-    "require": {
-        "abraham/twitteroauth": "^0.6.6"
-    }
+     "scripts": {
+        "post-install-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ],
+        "post-update-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ]
+    },
+
+    "config": {
+        "bin-dir": "bin"
+    },
+     "require": {
+         "jonnyw/php-phantomjs": "4.*"
+     }
 }

@@ -56,6 +56,27 @@ input[type="password"] {
   border-top:5px solid green;
 }
 
+.root h2 {
+  padding: 5px 0;
+  margin: 0 0 30px 0;
+  font-size: 140%;
+  border-bottom: 1px solid green;
+  color:green;
+  /*text-indent: 1em;*/
+}
+
+.root h3 {
+  font-size: 120%;
+}
+
+.root h4 {
+  font-size: 110%;
+  margin-bottom: 5px;
+}
+
+.root .comment {
+  padding-left: 1em;
+}
 .root .btn.btn-lg.btn-primary.btn-block {
   background-color: green;
   font-weight: bold;
@@ -79,8 +100,6 @@ body , html {
  
 footer {
   text-align: center;
-  position: fixed;
-  bottom: 0;
   width: 100%;
   height: 3em;
   background-color:green;

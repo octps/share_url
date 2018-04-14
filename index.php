@@ -16,7 +16,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-    <title>share_url</title>
+    <title>share url</title>
 
   </head>
 
@@ -25,14 +25,26 @@
     <div class = "container">
       <p class="center">share urlsは、urlsをシェアするwebサービスです。</p>
       <div class="wrapper">
-        <div class="form-signin">
+<!--         <div class="form-signin">
           <h3 class="form-signin-heading">Please Log In</h3>
           <p><a class="btn btn-lg btn-primary btn-block" href="/twitter_login.php">twitter login</a></p>
+        </div> -->
+        <div>
+          <h2>urls</h2>
+          <? foreach($contents as $content): ?>
+          <h3><a href="<?= $content[0]['url'] ?>" target="_blank"><?= $content[0]['url'] ?></a></h3>
+          <h4>comment: </h4>
+          <div class="comment">
+            <? foreach($content as $value): ?>
+              <span><?= $value['comment'] ?></span></br>
+            <? endforeach; ?>
+            <? endforeach; ?>
+          </div>
         </div>
-      </div>
+       </div>
     </div>
     <footer>
-      copylight : share ulrs
+      ©share ulrs
     </footer>
 
   </body>
