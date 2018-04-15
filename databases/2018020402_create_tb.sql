@@ -31,6 +31,17 @@ create table urls (
 DEFAULT CHARACTER SET 'utf8';
 ALTER TABLE urls AUTO_INCREMENT = 1001;
 
+create table hashs (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT
+    , user_id BIGINT
+    , url_id INTEGER NOT NULL
+    , hash varchar(1024)
+    , created_at TIMESTAMP NOT NULL DEFAULT 0
+    , updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW()
+) ENGINE = InnoDB
+DEFAULT CHARACTER SET 'utf8';
+ALTER TABLE hashs AUTO_INCREMENT = 1001;
+
 create table comments (
     id INTEGER PRIMARY KEY AUTO_INCREMENT
     , user_id BIGINT NOT NULL

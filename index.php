@@ -30,16 +30,30 @@
           <p><a class="btn btn-lg btn-primary btn-block" href="/twitter_login.php">twitter login</a></p>
         </div> -->
         <div>
+          <h2>Insert url and hash</h2>
+          <form action="/" method="post" class="form">
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Insert url and hash(need space brefore hash)</label>
+              <textarea name="urls" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Insert url and hash(need space brefore hash)"></textarea>
+              <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">password</label>
+              <input type="text" name="trip" class="form-control" id="exampleFormControlInput1" placeholder="">
+              <span>※passwordを設定すると自動的にidが設定されます</span>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">POST</button>
+          </form>
           <h2>urls</h2>
           <? foreach($contents as $content): ?>
           <h3><a href="<?= $content[0]['url'] ?>" target="_blank"><?= $content[0]['url'] ?></a></h3>
-          <h4>comment: </h4>
+          <h4>hash: </h4>
           <div class="comment">
             <? foreach($content as $value): ?>
-              <span><?= $value['comment'] ?></span></br>
-            <? endforeach; ?>
+              <span><?= $value['hash'] ?></span></br>
             <? endforeach; ?>
           </div>
+          <? endforeach; ?>
         </div>
        </div>
     </div>
