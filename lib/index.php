@@ -52,11 +52,39 @@
           exit;
       }
 
+      // トリップのバリディーションなど
+      if (!isset($post['trip'])) {
+          unset($_SESSION['token']);
+          header("location:/404.php");
+          exit;        
+      }
+
+      // if ($post['trip'] !== '') {
+      //     $trip = password_hash($post['trip'], PASSWORD_DEFAULT);
+      //     //あるか確認 あったら そのidを返す
+      //     $dbh = Db::getInstance();
+      //     try {
+      //       $dbh->beginTransaction();
+      //       $stmt = $dbh -> prepare ("select * from users where password = :password;");
+      //       $stmt->bindParam(':password', $url, PDO::PARAM_STR);
+      //       $stmt->execute();
+      //       $dbh->commit();
+      //     } catch (Exception $e) {
+      //       $dbh->rollBack();
+      //       echo "例外キャッチ：", $e->getMessage(), "\n";
+      //     }
+
+      //     //なかったらinsert そのidを返す
+      // }
+
+      // urlとハッシュの分解
       $urls_array = explode(" ", $post['urls']);
       $url_array = preg_grep('@^https?+://@i',$urls_array); // hrlの取得
       $url = $url_array[0];
       $hashs = preg_grep('/^[#＃][Ａ-Ｚａ-ｚA-Za-z一-鿆0-9０-９ぁ-ヶｦ-ﾟー]+/', $urls_array); // hashの取得(複数)
-      
+      if (empty($hashs)) {
+        $hashs = array('#no_hash');
+      }
       $error = array();
 
       if (!isset($url)
@@ -115,6 +143,7 @@
         $user_id = NULL;
         // $user_idがある場合の処理
         // $user_idを置き換える
+        // if ( )
         foreach(@$hashs ?: array() as $hash) {
           $dbh->beginTransaction();
           $stmt = $dbh -> prepare ("insert into hashs (url_id, user_id, hash, created_at) values (:url_id, :user_id, :hash, null);");
