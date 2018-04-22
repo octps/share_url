@@ -44,6 +44,42 @@
     echo "例外キャッチ：", $e->getMessage(), "\n";
   }
 
+  try {
+    $dbh->beginTransaction();
+    $stmt = $dbh -> prepare ("insert into user_screen_name (user_id, screen_name, created_at) values (:user_id, :screen_name, null);");
+    $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_STR);
+    $stmt->bindParam(':screen_name', $_SESSION['user_name'], PDO::PARAM_STR);
+    $stmt->execute();
+    $dbh->commit();
+  } catch (Exception $e) {
+    $dbh->rollBack();
+    echo "例外キャッチ：", $e->getMessage(), "\n";
+  }
+
+  try {
+    $dbh->beginTransaction();
+    $stmt = $dbh -> prepare ("select * from user_screen_name where user_id = :user_id order by created_at;");
+    $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_STR);
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+    $dbh->commit();
+  } catch (Exception $e) {
+    $dbh->rollBack();
+    echo "例外キャッチ：", $e->getMessage(), "\n";
+  }
+
+  try {
+    $dbh->beginTransaction();
+    $stmt = $dbh -> prepare ("update twitter_users set screen_name_id = :screen_name_id where id = :id;");
+    $stmt->bindParam(':screen_name_id', $results[0]['id'], PDO::PARAM_STR);
+    $stmt->bindParam(':id', $_SESSION['user_id'], PDO::PARAM_STR);
+    $stmt->execute();
+    $dbh->commit();
+  } catch (Exception $e) {
+    $dbh->rollBack();
+    echo "例外キャッチ：", $e->getMessage(), "\n";
+  }
+
   //マイページへリダイレクト
-  header('location: /members/index.php');
+  header('location: /members/name.php');
 ?>

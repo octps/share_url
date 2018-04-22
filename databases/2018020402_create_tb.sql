@@ -15,6 +15,17 @@ ALTER TABLE users AUTO_INCREMENT = 1001;
 create table twitter_users (
     id BIGINT PRIMARY KEY
     , name varchar(256) NOT NULL
+    , screen_name_id INTEGER 
+    , created_at TIMESTAMP NOT NULL DEFAULT 0
+    , updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW()
+) ENGINE = InnoDB
+DEFAULT CHARACTER SET 'utf8';
+ALTER TABLE users AUTO_INCREMENT = 1001;
+
+create table user_screen_name (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT
+    , user_id BIGINT
+    , screen_name varchar(256) NOT NULL
     , created_at TIMESTAMP NOT NULL DEFAULT 0
     , updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW()
 ) ENGINE = InnoDB
