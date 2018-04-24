@@ -29,7 +29,7 @@
     <div class="container">
       <div class="wrapper">
         <p>members index</p>
-        <p><?= $_SESSION['user_name']; ?></p>
+        <p><?= $now_name[0]['screen_name'] ?></p>
 
         <div>
           <form action="/url/post.php" method="post">
@@ -40,19 +40,19 @@
             <div><label>comment:<input type="text" name="comment" value=""></label></div>
             <input type="submit" value="登録">
             <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+            <input type="hidden" name="user_screen_name" value="<?= $now_name[0]['screen_name'] ?>">
           </form>
         </div>
         <div>
           <? foreach(@$contents ?: array() as $content): ?>
             <div>
-              [id]<span><a href="/url/?id=<?= $content[0]['id']; ?>"><?= $content[0]['id']; ?></a></span>
-              [user_id]<span><?= $content[0]['user_id']; ?></span>
-              [url]<span><?= $content[0]['url']; ?></span><br>
-              [title]<span><?= $content[0]['title']; ?></span><br>
+              [title]<span><a href="<?= $content[0]['url']; ?>" target="_blank"><?= $content[0]['title']; ?></a></span><br>
               <? foreach ($content as $comment): ?>
               [comment]<span><?= $comment['comment']; ?></span><br>
+              <span><a href="/url/?id=<?= $content[0]['url_id']; ?>">他のアカウントのコメントも見る</a></span><br>
               <? endforeach; ?>
             </div>
+            <hr>
           <? endforeach; ?>
         </div>
       </div>

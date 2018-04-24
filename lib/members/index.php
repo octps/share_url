@@ -8,10 +8,24 @@
   }
 
   $dbh = Db::getInstance();
+
+  // 現在の表示名を取得
   try {
     $dbh->beginTransaction();
-    $stmt = $dbh -> prepare ("select u.id, u.url, u.title, c.user_id, c.comment from urls as u join comments as c on u.id = c.url_id where c.user_id = :user_id order by c.updated_at DESC");
+    $stmt = $dbh -> prepare ("select * from user_screen_name where id = (select screen_name_id from twitter_users where user_id = :user_id);");
     $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_STR);
+    $stmt->execute();
+    $dbh->commit();
+  } catch (Exception $e) {
+    $dbh->rollBack();
+    echo "例外キャッチ：", $e->getMessage(), "\n";
+  }
+  $now_name = $stmt->fetchAll();
+
+  try {
+    $dbh->beginTransaction();
+    $stmt = $dbh -> prepare ("select u.id as url_id, c.id, c.comment, c.created_at, u.url, u.title from comments as c join urls as u on c.url_id = u.id where user_id = :user_id;");
+    $stmt->bindParam(':user_id', $now_name[0]['id'], PDO::PARAM_STR);
     $stmt->execute();
     $dbh->commit();
   } catch (Exception $e) {
@@ -20,7 +34,7 @@
   }
   $results = $stmt->fetchAll();
   foreach ($results as $result) {
-    $contents[$result["id"]][] = $result;  
+    $contents[$result["url_id"]][] = $result;  
   }
   $user_id = @$results[0]["user_id"];
 ?>

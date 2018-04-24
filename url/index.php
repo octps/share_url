@@ -27,11 +27,10 @@
         <p>url detail</p>
         <div>
             <div>
-              [id]<span><?= $results[0]['id']; ?></span>
-              [url]<span><?= $results[0]['url']; ?></span><br>
-              [title]<span><?= $results[0]['title']; ?></span><br>
+              [title]<span><a href="<?= $results[0]['url']; ?>" target="_blank"><?= $results[0]['title']; ?></a></span><br>
+              <h3>comment</h3>
               <? foreach($results as $result): ?>
-                [comment]<span><?= $result['comment']; ?></span><br>
+                <span><a href="/users/?user=<? ?>">[<?= $result['screen_name'] ?>]</a></span> <span><?= $result['comment']; ?></span><br>
               <? endforeach; ?>
             </div>
         </div>

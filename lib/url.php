@@ -28,6 +28,14 @@
           exit;
       }
 
+      if (!isset($post['user_screen_name'])
+        || $post['user_screen_name'] == ''
+      ) {
+          unset($_SESSION['token']);
+          header("location:/404.php");
+          exit;
+      }
+
       $error = array();
 
       if (!isset($post['url'])
@@ -52,6 +60,7 @@
     public static function post() {
       $post = $_POST;
       $dbh = Db::getInstance();
+
       //重複チェック
       try {
         $dbh->beginTransaction();
@@ -90,10 +99,29 @@
         }
       }
 
+      // 現在の表示名が正しいの確認
+      try {
+        $dbh->beginTransaction();
+        $stmt = $dbh -> prepare ("select * from user_screen_name where user_id = :user_id AND screen_name = :screen_name;");
+        $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_STR);
+        $stmt->bindParam(':screen_name', $post['user_screen_name'], PDO::PARAM_STR);
+        $stmt->execute();
+        $dbh->commit();
+      } catch (Exception $e) {
+        $dbh->rollBack();
+        echo "例外キャッチ：", $e->getMessage(), "\n";
+        exit;
+      }
+      $results = $stmt->fetchAll();
+      if (empty($results)) {
+        header('location:/404.php');
+        exit;
+      }     
+
       try {
         $dbh->beginTransaction();
         $stmt = $dbh -> prepare ("insert into comments (user_id, url_id, comment, created_at) values (:user_id, :url_id, :comment, null);");
-        $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_STR);
+        $stmt->bindParam(':user_id', $results[0]['id'], PDO::PARAM_STR);
         $stmt->bindParam(':url_id', $url_id, PDO::PARAM_STR);
         $stmt->bindParam(':comment', $post['comment'], PDO::PARAM_STR);
         $stmt->execute();
@@ -113,7 +141,7 @@
       $get = $_GET;
       try {
         $dbh->beginTransaction();
-        $stmt = $dbh -> prepare ("select u.id, u.url, u.title, c.comment from urls as u join comments as c on u.id = c.url_id where c.url_id = :url_id ");
+        $stmt = $dbh -> prepare ("select u.id, u.url, u.title, c.comment, sn.screen_name, sn.id as screen_id from urls as u join comments as c on u.id = c.url_id  join user_screen_name as sn on sn.id = c.user_id where c.url_id = :url_id ");
         $stmt->bindParam(':url_id', $get['id'], PDO::PARAM_STR);
         $stmt->execute();
         $dbh->commit();
