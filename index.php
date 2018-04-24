@@ -24,11 +24,15 @@
     <h1 class="center">share urls</h1>
     <div class = "container">
       <p class="center">share urlsは、urlsをシェアするwebサービスです。</p>
+      <p class="login_btn"><a class="" href="/twitter_login.php">twitter login</a></p>
       <div class="wrapper">
-        <div class="form-signin">
-          <h3 class="form-signin-heading">Please Log In</h3>
-          <p><a class="btn btn-lg btn-primary btn-block" href="/twitter_login.php">twitter login</a></p>
-        </div>
+        <? foreach($contents as $content): ?>
+          <p><a href="<?= $content[0]['url']?>" target="_blank"><?= $content[0]['title']?></a></p>
+          <b>comment</b>
+          <? foreach ($content as $val): ?>
+          <p><?= $val['comment']?> </p>
+          <? endforeach; ?>
+        <? endforeach; ?>
       </div>
     </div>
     <footer>
