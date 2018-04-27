@@ -1,0 +1,73 @@
+html,
+body {
+	margin:0;
+}
+
+.in-center {
+	justify-content: center;
+}
+
+.header,
+.footer {
+	background:#e1f7f9;
+}
+
+.t-center {
+	text-align: center;
+}
+
+a {
+	color:#4d7dca;
+	/*text-decoration: underline;*/
+}
+
+a:hover {
+	color:#4d7dca;
+	opacity: 0.6;
+	text-decoration: underline;
+}
+
+.contents {
+	width:80%;
+}
+
+.twitter_login {
+	margin-top: 10px;
+	border-bottom: 1px dotted #1a86f5;
+	margin-bottom: 15px;
+}
+
+.twitter_login .button {
+	background-color:#1a86f5;
+	border-color:#1a86f5;
+}
+
+.button-small {
+  font-size: .8rem;
+  height: 2.8rem;
+  line-height: 2.8rem;
+  padding: 0 1.5rem;
+}
+
+.column img {
+	width:100%;
+}
+
+h2 {
+	font-size:2.8rem;
+}
+
+.comments p {
+	margin-bottom: 3px;
+	font-size:80%;
+}
+
+.bookmark {
+	border-bottom: 1px dotted #1a86f5;
+	margin-bottom: 15px;
+	padding-bottom: 10px;
+}
+
+.title p {
+	margin-bottom: 1rem;
+}
