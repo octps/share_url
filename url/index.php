@@ -11,17 +11,17 @@
     <link rel="icon" href="/images/favicon.ico">
 
     <!-- css framework読み込み（スタイリングのため） -->
-    <title>puprl | webでブックマークするサービス</title>
+    <title>puprl ★タイトル★のコメント | webでブックマークするサービス</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.0.3/milligram.min.css">
     <link rel="stylesheet" href="/css/index.css">
   </head>
 
-  <body>
-    <div class="root">
+  <body class="other">
+    <div class="">
       <header class="header">
         <div class="row header_inner">
           <div class="column column-30 t-center">
-            <h1><img src="/images/logo.svg"><span>puprl</span></h1>
+            <span class="h1"><img src="/images/logo.svg"><span>puprl</span>
           </div>
           <div class="column column-60">
             <form action="/search.php" method="POST" class="row">
@@ -39,7 +39,7 @@
           <div class="bookmark">
             <div class="titles row">
                 <div class="title column column-75">
-                  <h2><a href="" target="_blank">タイトル</a></h2>
+                  <h1 class="h2"><a href="">タイトル</a><span>のコメント</span></h1>
                   <p><a href="" target="_blank">http://google.com</a></p>
                 </div>
                 <div class="column column-20">
@@ -52,49 +52,18 @@
               <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
               <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
               <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
-              <span><a href="">続きを見る</a></span>
-            </div>
-          </div>
-        </div>
-        <div class="main container">
-          <div class="bookmark">
-            <div class="titles row">
-                <div class="title column column-75">
-                  <h2><a href="" target="_blank">タイトル</a></h2>
-                  <p><a href="" target="_blank">http://google.com</a></p>
-                </div>
-                <div class="column column-20">
-                  <img src="/images/sample.jpg">
-                </div>
-            </div>
-            <div class="row">
-            </div>
-            <div class="comments">
               <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
               <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
               <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
-              <span><a href="">続きを見る</a></span>
-            </div>
-          </div>
-        </div>
-        <div class="main container">
-          <div class="bookmark">
-            <div class="titles row">
-                <div class="title column column-75">
-                  <h2><a href="" target="_blank">タイトル</a></h2>
-                  <p><a href="" target="_blank">http://google.com</a></p>
-                </div>
-                <div class="column column-20">
-                  <img src="/images/sample.jpg">
-                </div>
-            </div>
-            <div class="row">
-            </div>
-            <div class="comments">
               <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
               <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
               <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
-              <span><a href="">続きを見る</a></span>
+              <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
+              <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
+              <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
+              <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
+              <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
+              <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
             </div>
           </div>
         </div>
