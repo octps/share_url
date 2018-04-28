@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/css/index.css">
   </head>
 
-  <body class="other user">
+  <body class="other members">
     <div class="">
       <header class="header">
         <div class="row header_inner">
@@ -32,8 +32,16 @@
         </div>
       </header>
       <div class="main container contents">
-        <div>
-          <p  class="twitter_login t-center"><a class="button button-small" href="/twitterlogin.php">twitter login</a></p>
+        <div class="url_form_wrapper">
+          <form action="/members/" method="post" class="url_form container">
+            <fieldset>
+              <label for="urlField">url</label>
+              <input type="text" name="url" placeholder="http://pupel" id="urlField">
+              <label for="commentField">Comment</label>
+              <input type="text" name="comment" placeholder="" id="commentField"></textarea>
+              <input class="" type="submit" value="登録する">
+            </fieldset>
+          </form>
         </div>
         <div class="main container">
           <h1 class="h2"><a href="">ユーザー名</a><span>のブックマーク</span></h1>

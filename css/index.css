@@ -72,7 +72,7 @@ h2 {
 	margin-bottom: 1rem;
 }
 
-.comments .user {
+.comments .users {
 	margin-right: 2em;
 }
 
@@ -92,19 +92,40 @@ h2 {
 	margin-top: 2rem;
 }
 
-.header_inner input {
+.header_inner input,
+.url_form input {
 	background-color:#fff;
 	margin-bottom: 0;
 	color:#4d7dca;
 }
+.header_inner input[type='submit']:hover,
+.url_form input[type='submit']:hover {
+	background-color:#4d7dca;
+}
 
 .header_inner input[type='submit'],
-.header_inner input[type='text'] {
+.header_inner input[type='text'],
+.url_form input[type='text'],
+.url_form input[type='submit'] {
 	border-color:#4d7dca;
 	font-size: .8rem;
 	height: 2.8rem;
 	line-height: 2.8rem;
 	padding: 0 1.5rem;
+}
+
+.url_form input[type='submit'] {
+	margin-top: 1.5rem;
+}
+
+.url_form {
+	width:100%;
+	margin:0 auto;
+}
+
+.url_form_wrapper {
+	border-bottom: 1px solid #4d7dca;
+	margin-bottom: 1.5rem;
 }
 
 .header_inner input.text {
@@ -176,15 +197,20 @@ h2 {
 	margin-left: 1rem;
 }
 
-/* user */
+/* users */
 
-.other.user h2 {
+.other.users h2 {
 	font-size: 2.4rem;
 }
 
-.other.user .h2 {
+.other.users .h2 {
 	border-bottom: 1px dotted #1a86f5;
 	margin-bottom: 15px;
 	padding-bottom: 10px;	
+}
+
+/* members */
+.members .url_form {
+	margin-top: 1.5rem;
 }
 
