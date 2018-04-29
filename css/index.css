@@ -229,11 +229,19 @@ h2 {
 	margin-top: 0;
 }
 
-.members .change_name {
+.members .change_name,
+.return_user_top {
 	margin-top: 1.5rem;
 	text-decoration: underline;
 }
 
+.return_user_top {
+	font-size: 80%;
+}
+.return_user_top_in_follower {
+	text-align: right;
+	font-size: 80%;
+}
 .members .h2 {
 	margin-top: 2rem;
 	margin-bottom: 1rem;
