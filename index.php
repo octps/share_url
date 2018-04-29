@@ -1,5 +1,5 @@
 <?php
-
+require_once(dirname(__FILE__) . '/./lib/index.php');
 ?>
 <!doctype html>
 <html lang="ja">
