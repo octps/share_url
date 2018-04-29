@@ -72,7 +72,7 @@ h2 {
 	margin-bottom: 1rem;
 }
 
-.comments .users {
+.comments .user {
 	margin-right: 2em;
 }
 
@@ -94,14 +94,16 @@ h2 {
 
 .header_inner input,
 .url_form input,
-.follower .button {
+.follower .button,
+.followers  input[type='submit'] {
 	background-color:#fff;
 	margin-bottom: 0;
 	color:#4d7dca;
 }
 .header_inner input[type='submit']:hover,
 .url_form input[type='submit']:hover,
-.follower .button {
+.follower .button,
+.followers  input[type='submit']:hover {
 	background-color:#4d7dca;
 }
 
@@ -109,7 +111,8 @@ h2 {
 .header_inner input[type='text'],
 .url_form input[type='text'],
 .url_form input[type='submit'],
-.follower .button {
+.follower .button,
+.followers  input[type='submit'] {
 	border-color:#4d7dca;
 	font-size: .8rem;
 	height: 2.8rem;
@@ -117,9 +120,11 @@ h2 {
 	padding: 0 1.5rem;
 }
 
-.follower .button {
+.follower .button,
+.followers  input[type='submit']:hover {
 	color:#fff;
 }
+
 .url_form input[type='submit'] {
 	margin-top: 1.5rem;
 }
@@ -136,6 +141,10 @@ h2 {
 
 .header_inner input.text {
 	width:100%;
+}
+
+.main_title {
+	display: inline-block;
 }
 
 /* root */
@@ -160,7 +169,7 @@ h2 {
 }
 
 .root h1 img {
-	width:15%;
+	width:45%;
 }
 
 
@@ -186,7 +195,7 @@ h2 {
 }
 
 .other .h1 img {
-	width:15%;
+	width:45%;
 }
 
 .other .h2 {
@@ -234,4 +243,15 @@ h2 {
 	border-top: 1px dotted #1a86f5;
 	margin-bottom: 1rem;
 	padding-top: 1rem;
+}
+
+/* followers */
+.followers .unfollow {
+	display: inline-block;
+	margin-left:1rem;
+}
+
+.followers .user_name {
+	display: inline-block;
+	min-width: 15em;
 }

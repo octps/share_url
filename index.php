@@ -21,7 +21,7 @@
       <header class="header">
         <div class="row header_inner">
           <div class="column column-30 t-center">
-            <h1><img src="/images/logo.svg"><span>puprl</span></h1>
+            <h1><img src="/images/logo.svg" alt="puprlロゴ"></h1>
           </div>
           <div class="column column-60">
             <form action="/search.php" method="POST" class="row">
