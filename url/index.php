@@ -1,5 +1,8 @@
 <?php
-
+require_once(dirname(__FILE__) . '/.././lib/url/index.php');
+// echo ("<pre>");
+// print_r($contents);
+// echo ("</pre>");
 ?>
 <!doctype html>
 <html lang="ja">
@@ -36,11 +39,12 @@
           <p  class="twitter_login t-center"><a class="button button-small" href="/twitterlogin.php">twitter login</a></p>
         </div>
         <div class="main container">
+          <? foreach(@$contents ?: array() as $content): ?>
           <div class="bookmark">
             <div class="titles row">
                 <div class="title column column-75">
-                  <h1 class="h2"><a href="">タイトル</a><span>のコメント</span></h1>
-                  <p><a href="" target="_blank">http://google.com</a></p>
+                  <h1 class="h2"><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['title']) ?></a><span>へのコメント</span></h1>
+                  <p><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['url']) ?></a></p>
                 </div>
                 <div class="column column-20">
                   <img src="/images/sample.jpg">
@@ -49,23 +53,12 @@
             <div class="row">
             </div>
             <div class="comments">
-              <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
+              <? $i = 0; foreach(@$content ?: array() as $val):?>
+              <p><a class="user" href="/members/?id=<?= h($val['member_id']) ?>"><?= h($val['screen_name']) ?></a><?= h($val['comment']) ?><span class="time">(<?= h($val['created_at']) ?>)</span></p>
+              <? endforeach; ?>
             </div>
           </div>
+          <? endforeach; ?>
         </div>
       </div>
       <footer class="row in-center">
