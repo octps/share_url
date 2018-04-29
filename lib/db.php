@@ -7,12 +7,13 @@ class Db
   private static $pdo = null;
 
   public static function getInstance() {
+    $db = Config::db();
     $config = (object) array(
         'db' => (object) array(
           'host' => 'localhost'
           , 'database' => 'pup_url'
-          , 'username' => $db_username
-          , 'password' => $db_password
+          , 'username' => $db['username']
+          , 'password' => $db['password']
         )
     );
 

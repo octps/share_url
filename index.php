@@ -36,11 +36,12 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
           <p  class="twitter_login t-center"><a class="button button-small" href="/twitterlogin.php">twitter login</a></p>
         </div>
         <div class="main container">
+          <? foreach(@$contents ?: array() as $content): ?>
           <div class="bookmark">
             <div class="titles row">
                 <div class="title column column-75">
-                  <h2><a href="" target="_blank">タイトル</a></h2>
-                  <p><a href="" target="_blank">http://google.com</a></p>
+                  <h2><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['title']) ?></a></h2>
+                  <p><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['url']) ?></a></p>
                 </div>
                 <div class="column column-20">
                   <img src="/images/sample.jpg">
@@ -49,54 +50,16 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
             <div class="row">
             </div>
             <div class="comments">
-              <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
-              <span><a href="">続きを見る</a></span>
+              <? $i = 0; foreach(@$content ?: array() as $val):?>
+              <? if($i < 3): ?>
+              <p><a class="user" href="/members/?id=<?= h($val['member_id']) ?>"><?= h($val['screen_name']) ?></a><?= h($val['comment']) ?><span class="time">(<?= h($val['created_at']) ?>)</span></p>
+              <? $i++; ?>
+              <? endif; ?>
+              <? endforeach; ?>
+              <span><a href="/url/?id=<?= h($content[0]['url_id'])?>">続きを見る</a></span>
             </div>
           </div>
-        </div>
-        <div class="main container">
-          <div class="bookmark">
-            <div class="titles row">
-                <div class="title column column-75">
-                  <h2><a href="" target="_blank">タイトル</a></h2>
-                  <p><a href="" target="_blank">http://google.com</a></p>
-                </div>
-                <div class="column column-20">
-                  <img src="/images/sample.jpg">
-                </div>
-            </div>
-            <div class="row">
-            </div>
-            <div class="comments">
-              <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
-              <span><a href="">続きを見る</a></span>
-            </div>
-          </div>
-        </div>
-        <div class="main container">
-          <div class="bookmark">
-            <div class="titles row">
-                <div class="title column column-75">
-                  <h2><a href="" target="_blank">タイトル</a></h2>
-                  <p><a href="" target="_blank">http://google.com</a></p>
-                </div>
-                <div class="column column-20">
-                  <img src="/images/sample.jpg">
-                </div>
-            </div>
-            <div class="row">
-            </div>
-            <div class="comments">
-              <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
-              <span><a href="">続きを見る</a></span>
-            </div>
-          </div>
+          <? endforeach; ?>
         </div>
       </div>
       <footer class="row in-center">
