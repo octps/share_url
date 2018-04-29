@@ -33,6 +33,7 @@
       </header>
       <div class="main container contents">
         <div class="url_form_wrapper">
+          <h1 class="h2"><a href="">ユーザー名</a><span>のページ</span></h1>
           <form action="/members/" method="post" class="url_form container">
             <fieldset>
               <label for="urlField">url</label>
@@ -40,11 +41,17 @@
               <label for="commentField">Comment</label>
               <input type="text" name="comment" placeholder="" id="commentField"></textarea>
               <input class="" type="submit" value="登録する">
+              <div class="float-right change_name">
+                <a href="/members/me.php">change name</a>
+              </div>
             </fieldset>
           </form>
+          <div class="follower container">
+            <a href="/members/follow.php" class="button">follower</a>
+          </div>
         </div>
         <div class="main container">
-          <h1 class="h2"><a href="">ユーザー名</a><span>のブックマーク</span></h1>
+
           <div class="bookmark">
             <div class="titles row">
                 <div class="title column column-75">
