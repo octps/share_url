@@ -19,7 +19,7 @@ require_once(dirname(__FILE__) . '/.././lib/search/index.php');
     <link rel="stylesheet" href="/css/index.css">
   </head>
 
-  <body class="other user">
+  <body class="other user search">
     <div class="">
       <header class="header">
         <div class="row header_inner">
@@ -31,13 +31,21 @@ require_once(dirname(__FILE__) . '/.././lib/search/index.php');
               <p class="column column-80"><input class="text" type="text" name="q" value="" placeholder=""></p>
               <p class="column column-10"><input class="submit" type="submit" value="seach"></p>
             </form>
+            <? if (isset($_SESSION['user_id'])): ?>
+            <div class="float-right">
+              <a class="to_mypage" href="/members/?id=<?= $_SESSION['user_id'] ?>">mypageへ</a>
+              <a class="to_logout" href="/logout.php">logout</a>
+            </div>
+            <? endif; ?>
           </div>
         </div>
       </header>
       <div class="main container contents">
+        <? if (!isset($_SESSION['user_id'])): ?>
         <div>
           <p  class="twitter_login t-center"><a class="button button-small" href="/twitterlogin.php">twitter login</a></p>
         </div>
+        <? endif; ?>
         <div class="main container">
           <h1 class="h2"><a href=""><?= h($_GET['q']) ?></a><span>の検索結果</span></h1>
           <? foreach(@$contents ?: array() as $content): ?>

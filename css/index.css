@@ -64,6 +64,7 @@ h2 {
 
 .bookmark {
 	border-bottom: 1px dotted #1a86f5;
+	margin-top: 15px;
 	margin-bottom: 15px;
 	padding-bottom: 10px;
 }
@@ -88,7 +89,7 @@ h2 {
 }
 
 .header_inner form {
-	margin-bottom: 1.5rem;
+	margin-bottom: 0.5rem;
 	margin-top: 2rem;
 }
 
@@ -262,4 +263,17 @@ h2 {
 .followers .user_name {
 	display: inline-block;
 	min-width: 15em;
+}
+
+.to_mypage {
+	margin-right: 1em;
+}
+
+.to_mypage,
+.to_logout {
+	cursor: pointer;
+}
+
+.search .h2 {
+	margin-top: 15px;
 }

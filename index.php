@@ -26,15 +26,23 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
           <div class="column column-60">
             <form action="/search/" method="GET" class="row">
               <p class="column column-80"><input class="text" type="text" name="q" value="" placeholder=""></p>
-              <p class="column column-10"><input class="submit" type="submit" value="seach"></p>
+              <p class="column column-10"><input class="submit" type="submit" value="search"></p>
             </form>
+            <? if (isset($_SESSION['user_id'])): ?>
+            <div class="float-right">
+              <a class="to_mypage" href="/members/?id=<?= $_SESSION['user_id'] ?>">mypage</a>
+              <a class="to_logout" href="/logout.php">logout</a>
+            </div>
+            <? endif; ?>
           </div>
         </div>
       </header>
       <div class="main container contents">
+        <? if (!isset($_SESSION['user_id'])): ?>
         <div>
           <p  class="twitter_login t-center"><a class="button button-small" href="/twitterlogin.php">twitter login</a></p>
         </div>
+        <? endif; ?>
         <div class="main container">
           <? foreach(@$contents ?: array() as $content): ?>
           <div class="bookmark">

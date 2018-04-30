@@ -2,6 +2,7 @@
 require_once(dirname(__FILE__) . '/../db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
+  session_start();
   $contents = search::get();
 }
 

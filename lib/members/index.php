@@ -27,7 +27,7 @@ class members {
     
     try {
       $dbh->beginTransaction();
-      $stmt = $dbh -> prepare ("select * from twitter_users where id = id");
+      $stmt = $dbh -> prepare ("select * from twitter_users where id = :id");
       $stmt->bindParam(':id', $get['id'], PDO::PARAM_STR);
       $stmt->execute();
       $dbh->commit();

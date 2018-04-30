@@ -26,8 +26,14 @@
           <div class="column column-60">
             <form action="/search/" method="GET" class="row">
               <p class="column column-80"><input class="text" type="text" name="q" value="" placeholder=""></p>
-              <p class="column column-10"><input class="submit" type="submit" value="seach"></p>
+              <p class="column column-10"><input class="submit" type="submit" value="search"></p>
             </form>
+            <? if (isset($_SESSION['user_id'])): ?>
+            <div class="float-right">
+              <a class="to_mypage" href="/members/?id=<?= $_SESSION['user_id'] ?>">mypageへ</a>
+              <a class="to_logout" href="/logout.php">logout</a>
+            </div>
+            <? endif; ?>
           </div>
         </div>
       </header>

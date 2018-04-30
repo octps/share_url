@@ -87,6 +87,9 @@ if (isset($_SESSION['access_token']['user_id']))
   exit;
 }
 
+$_SESSION['user_id'] = $member_id;
+session_regenerate_id();
+
 $url = "/members/?id=" . $member_id;
 //マイページへリダイレクト
 header( "location: $url" );

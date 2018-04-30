@@ -30,21 +30,30 @@ require_once(dirname(__FILE__) . '/.././lib/members/index.php');
           <div class="column column-60">
             <form action="/search/" method="GET" class="row">
               <p class="column column-80"><input class="text" type="text" name="q" value="" placeholder=""></p>
-              <p class="column column-10"><input class="submit" type="submit" value="seach"></p>
+              <p class="column column-10"><input class="submit" type="submit" value="search"></p>
             </form>
+            <? if (isset($_SESSION['user_id'])): ?>
+            <div class="float-right">
+              <a class="to_mypage" href="/members/?id=<?= $_SESSION['user_id'] ?>">mypageへ</a>
+              <a class="to_logout" href="/logout.php">logout</a>
+            </div>
+            <? endif; ?>
           </div>
         </div>
       </header>
       <div class="main container contents">
+        <? if (!isset($_SESSION['user_id'])): ?>
         <div>
           <p  class="twitter_login t-center"><a class="button button-small" href="/twitterlogin.php">twitter login</a></p>
         </div>
+        <? endif; ?>
         <div class="url_form_wrapper">
           <h1 class="h2"><?= h($screen_name) ?></a><span>のページ</span></h1>
+          <? if (@$_GET['id'] == @$_SESSION['user_id']): ?>
           <form action="/members/" method="post" class="url_form container">
             <fieldset>
               <label for="urlField">url</label>
-              <input type="text" name="url" placeholder="http://pupel" id="urlField">
+              <input type="text" name="url" placeholder="http://pupel.com" id="urlField">
               <label for="commentField">Comment</label>
               <input type="text" name="comment" placeholder="" id="commentField"></textarea>
               <input class="" type="submit" value="登録する">
@@ -56,6 +65,7 @@ require_once(dirname(__FILE__) . '/.././lib/members/index.php');
           <div class="follower container">
             <a href="/members/follow.php" class="button">follower</a>
           </div>
+          <? endif; ?>
         </div>
         <div class="main container">
           <? foreach(@$contents ?: array() as $content): ?>
@@ -75,6 +85,7 @@ require_once(dirname(__FILE__) . '/.././lib/members/index.php');
               <? $i = 0; foreach(@$content ?: array() as $val):?>
               <p><a class="user" href="/members/?id=<?= h($val['member_id']) ?>"><?= h($val['screen_name']) ?></a><?= h($val['comment']) ?><span class="time">(<?= h($val['created_at']) ?>)</span></p>
               <? endforeach; ?>
+              <span><a href="/url/?id=<?= h($content[0]['url_id']) ?>"><?= h($content[0]['title']) ?>へのコメントを見る</a></span>
             </div>
           </div>
           <? endforeach; ?>
