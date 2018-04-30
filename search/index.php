@@ -1,5 +1,8 @@
 <?php
-
+require_once(dirname(__FILE__) . '/.././lib/search/index.php');
+// echo("<pre>");
+// print_r($contents);
+// echo("</pre>");
 ?>
 <!doctype html>
 <html lang="ja">
@@ -11,7 +14,7 @@
     <link rel="icon" href="/images/favicon.ico">
 
     <!-- css framework読み込み（スタイリングのため） -->
-    <title>puprl ★検索文字★の検索結果 | webでブックマークするサービス</title>
+    <title>puprl <?= h($get['q']) ?>の検索結果 | webでブックマークするサービス</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.0.3/milligram.min.css">
     <link rel="stylesheet" href="/css/index.css">
   </head>
@@ -24,7 +27,7 @@
             <span class="h1"><a href="/"><img src="/images/logo.svg" alt="puprlロゴ"></a></span>
           </div>
           <div class="column column-60">
-            <form action="/search/" method="POST" class="row">
+            <form action="/search/" method="GET" class="row">
               <p class="column column-80"><input class="text" type="text" name="q" value="" placeholder=""></p>
               <p class="column column-10"><input class="submit" type="submit" value="seach"></p>
             </form>
@@ -36,12 +39,13 @@
           <p  class="twitter_login t-center"><a class="button button-small" href="/twitterlogin.php">twitter login</a></p>
         </div>
         <div class="main container">
-          <h1 class="h2"><a href="">★検索文字★</a><span>の検索結果</span></h1>
+          <h1 class="h2"><a href=""><?= h($_GET['q']) ?></a><span>の検索結果</span></h1>
+          <? foreach(@$contents ?: array() as $content): ?>
           <div class="bookmark">
             <div class="titles row">
                 <div class="title column column-75">
-                  <h2><a href="">タイトル</a></h2>
-                  <p><a href="" target="_blank">http://google.com</a></p>
+                  <h2><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['title']) ?></a></h2>
+                  <p><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['url']) ?></a></p>
                 </div>
                 <div class="column column-20">
                   <img src="/images/sample.jpg">
@@ -50,51 +54,13 @@
             <div class="row">
             </div>
             <div class="comments">
-              <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
-              <span><a href="">続きを見る</a></span>
+              <? foreach(@$content ?: array() as $val):?>
+              <p><a class="user" href="/members/?id=<?= h($val['member_id']) ?>"><?= h($val['screen_name']) ?></a><?= h($val['comment']) ?><span class="time">(<?= h($val['created_at']) ?>)</span></p>
+              <? endforeach; ?>
+              <span><a href="/url/?id=<?= h($content[0]['url_id'])?>"><?= h($content[0]['title']) ?>へのコメントを見る</a></span>
             </div>
           </div>
-          <div class="bookmark">
-            <div class="titles row">
-                <div class="title column column-75">
-                  <h2><a href="">タイトル</a></h2>
-                  <p><a href="" target="_blank">http://google.com</a></p>
-                </div>
-                <div class="column column-20">
-                  <img src="/images/sample.jpg">
-                </div>
-            </div>
-            <div class="row">
-            </div>
-            <div class="comments">
-              <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
-              <span><a href="">続きを見る</a></span>
-            </div>
-          </div>
-          <div class="bookmark">
-            <div class="titles row">
-                <div class="title column column-75">
-                  <h2><a href="">タイトル</a></h2>
-                  <p><a href="" target="_blank">http://google.com</a></p>
-                </div>
-                <div class="column column-20">
-                  <img src="/images/sample.jpg">
-                </div>
-            </div>
-            <div class="row">
-            </div>
-            <div class="comments">
-              <p><a class="user" href="">ユーザー名</a>ああああああ<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>いいい、ああ、うう。<span class="time">(2018.04.01 23:00:00)</span></p>
-              <p><a class="user" href="">ユーザー名</a>ああああああはしししはちはちとしは<span class="time">(2018.04.01 23:00:00)</span></p>
-              <span><a href="">続きを見る</a></span>
-            </div>
-          </div>
-
+          <? endforeach; ?>
         </div>
       </div>
       <footer class="row in-center">

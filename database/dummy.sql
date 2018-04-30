@@ -43,3 +43,6 @@ insert into comments (member_id, url_id, comment, created_at) values
 
 insert into comments (member_id, url_id, comment, created_at) values
 ("1005", "1001", "グーグルへのコメントテスト ユーザー5 時間変更2", null);
+
+insert into comments (member_id, url_id, comment, created_at) values
+("1001", "1002", "ヤフーへのコメントテスト ユーザー1 ", null);

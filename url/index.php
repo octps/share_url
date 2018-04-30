@@ -24,7 +24,7 @@ require_once(dirname(__FILE__) . '/.././lib/url/index.php');
             <span class="h1"><a href="/"><img src="/images/logo.svg" alt="puprlロゴ"></a></span>
           </div>
           <div class="column column-60">
-            <form action="/search/" method="POST" class="row">
+            <form action="/search/" method="GET" class="row">
               <p class="column column-80"><input class="text" type="text" name="q" value="" placeholder=""></p>
               <p class="column column-10"><input class="submit" type="submit" value="seach"></p>
             </form>
