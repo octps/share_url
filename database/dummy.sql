@@ -1,12 +1,12 @@
 # dummy data
 
-insert into twitter_users (id, name, screen_name, created_at) values 
-(1001,"test1","test1",null),
-(1002,"test2","test2",null),
-(1003,"test3","test3",null),
-(1004,"test4","test4",null),
-(1005,"test5","test5",null),
-(1006,"test6","test6",null);
+insert into twitter_users (id, user_id, name, screen_name, created_at) values 
+(1001,100100,"test1","test1",null),
+(1002,100100,"test2","test2",null),
+(1003,100100,"test3","test3",null),
+(1004,100100,"test4","test4",null),
+(1005,100100,"test5","test5",null),
+(1006,100100,"test6","test6",null);
 
 insert into urls (id, url, title, created_at) values
 (1001, "http://google.com", "グーグル", null),

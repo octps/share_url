@@ -24,12 +24,11 @@ class members {
     };
 
     // quuery id 、つまりmemberがいない時の処理
-    // comment基準
-    // commentがついていない時は存在しない
+    
     try {
       $dbh->beginTransaction();
-      $stmt = $dbh -> prepare ("select * from comments where member_id = :member_id");
-      $stmt->bindParam(':member_id', $get['id'], PDO::PARAM_STR);
+      $stmt = $dbh -> prepare ("select * from twitter_users where id = id");
+      $stmt->bindParam(':id', $get['id'], PDO::PARAM_STR);
       $stmt->execute();
       $dbh->commit();
     } catch (Exception $e) {
@@ -65,7 +64,10 @@ class members {
       // $result['opg'] = OpenGraph::fetch('$result["url"]');
       $contents[$result["url_id"]][] = $result;
     }
-    $contents['screen_name'] = $results[0]['screen_name'];
+    $contents['screen_name'] = @$results[0]['screen_name'];
+    if (empty($results)) {
+      $contents['screen_name'] = $_SESSION['access_token']['screen_name'];
+    }
     return $contents;
   }
 

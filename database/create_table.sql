@@ -1,6 +1,7 @@
 
 create table twitter_users (
-    id BIGINT PRIMARY KEY
+    id  INTEGER PRIMARY KEY AUTO_INCREMENT 
+    , user_id BIGINT PRIMARY KEY
     , name varchar(256) NOT NULL
     , screen_name varchar(256) NOT NULL
     , created_at TIMESTAMP NOT NULL DEFAULT 0
