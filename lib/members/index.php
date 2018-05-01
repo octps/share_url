@@ -103,7 +103,7 @@ class members {
         $title = $url; //titleがなかったら、urlをtitleに設定
       }
 
-      $sql = "insert into urls (url, title, created_at) values (:url, :title, null):";
+      $sql = "insert into urls (url, title, created_at) values (:url, :title, null);";
 
       try {
         $dbh->beginTransaction();
