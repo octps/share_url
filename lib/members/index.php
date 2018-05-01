@@ -16,6 +16,9 @@ class members {
 
     unset($_SESSION['error']);
     unset($_SESSION['error']['url']);
+    unset($_SESSION['post']);
+    unset($_SESSION['post']['url']);
+    unset($_SESSION['post']['comment']);
 
     $post = $_POST;
     $back_url = "/members/?id=" . $_SESSION['user_id'];
@@ -34,6 +37,8 @@ class members {
 
     if (!empty($error)) {
       $_SESSION['error']['url'] = $error['url'];
+      $_SESSION['post']['url'] = $post['url'];
+      $_SESSION['post']['comment'] = $post['comment'];
       header("location:$back_url");
       exit;
     }
@@ -45,6 +50,8 @@ class members {
     } else {
       $error['url'] = "urlの形式が正しくありません。";
       $_SESSION['error']['url'] = $error['url'];
+      $_SESSION['post']['url'] = $post['url'];
+      $_SESSION['post']['comment'] = $post['comment'];
       header("location:$back_url");
       exit;
     }
@@ -83,7 +90,7 @@ class members {
 
       // file_get_contetsでstatuscodeの確認
       $context = stream_context_create(array(
-          'http' => array('ignore_errors' => true)
+        'http' => array('ignore_errors' => true)
       ));
       $response = @file_get_contents($url, false, $context);
 
@@ -92,24 +99,37 @@ class members {
       if ($status_code != '200') {
         $error['url'] = "urlが正しく取得できませんでした。";
         $_SESSION['error']['url'] = $error['url'];
+        $_SESSION['post']['url'] = $post['url'];
+        $_SESSION['post']['comment'] = $post['comment'];
         header("location:$back_url");
         exit;
       }
 
-      // titleの取得
-      if (preg_match('/<title>(.*?)<\/title>/i', mb_convert_encoding($response, 'UTF-8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS'), $result)) {
-        $title = $result[1];
-      } else {
-        $title = $url; //titleがなかったら、urlをtitleに設定
+      // 形式の確認
+      $type = "html";
+      $type_check = @exif_imagetype($url);
+      if ($type_check == "1" || $type_check == "2" || $type_check == "3" ) {
+        $type = "image";
+        $title = $url;
       }
 
-      $sql = "insert into urls (url, title, created_at) values (:url, :title, null);";
+      if ($type === "html") {
+        // titleの取得
+        if (preg_match('/<title>(.*?)<\/title>/i', mb_convert_encoding($response, 'UTF-8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS'), $result)) {
+          $title = $result[1];
+        } else {
+          $title = $url; //titleがなかったら、urlをtitleに設定
+        }
+      }
+
+      $sql = "insert into urls (url, title, type, created_at) values (:url, :title, :type, null);";
 
       try {
         $dbh->beginTransaction();
         $stmt = $dbh -> prepare ($sql);
         $stmt->bindParam(':url', $url, PDO::PARAM_STR);
         $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+        $stmt->bindParam(':type', $type, PDO::PARAM_STR);
         $stmt->execute();
         $url_id = $dbh->lastInsertId('id'); // $url_idを設定
         $dbh->commit();
@@ -175,7 +195,7 @@ class members {
     // sessionで分岐
     // if ($_SESSION)
     // where句を適合
-    $sql = "select u.id as url_id, u.url, u.title, c.id as comment_id, c.member_id, c.comment, t.id as twitter_id, t.screen_name, c.created_at from urls as u join comments as c on u.id = c.url_id join twitter_users as t on c.member_id = t.id where member_id = :member_id order by c.created_at DESC;";
+    $sql = "select u.id as url_id, u.url, u.title, u.type, c.id as comment_id, c.member_id, c.comment, t.id as twitter_id, t.screen_name, c.created_at from urls as u join comments as c on u.id = c.url_id join twitter_users as t on c.member_id = t.id where member_id = :member_id order by c.created_at DESC;";
 
     try {
       $dbh->beginTransaction();

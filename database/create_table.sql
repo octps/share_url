@@ -14,6 +14,7 @@ create table urls (
     id INTEGER PRIMARY KEY AUTO_INCREMENT
     , url varchar(256) NOT NULL
     , title varchar (512) NOT NULL
+    , type varchar (256) NOT NULL
     , created_at TIMESTAMP NOT NULL DEFAULT 0
     , updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW()
 ) ENGINE = InnoDB

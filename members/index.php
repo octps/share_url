@@ -57,9 +57,9 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
               <? if (isset($_SESSION['error']['url'])): ?>
               <p style="color:red"><?= $_SESSION['error']['url'] ?></p>
               <? endif; ?>
-              <input type="text" name="url" placeholder="http://pupel.com" id="urlField">
+              <input type="text" name="url" placeholder="http://pupel.com" id="urlField" value="<?= isset($_SESSION['post']['url']) ? $_SESSION['post']['url'] : "" ?>" >
               <label for="commentField">Comment</label>
-              <input type="text" name="comment" placeholder="" id="commentField"></textarea>
+              <input type="text" name="comment" placeholder="" id="commentField" value="<?= isset($_SESSION['post']['comment']) ? $_SESSION['post']['comment'] : "" ?>" ></textarea>
               <input class="" type="submit" value="登録する">
               <div class="float-right change_name">
                 <a href="/members/me.php">change name</a>
@@ -76,12 +76,20 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
           <div class="bookmark">
             <div class="titles row">
                 <div class="title column column-75">
-                  <h2><a href="<?= h($content[0]['url']) ?>"><?= h($content[0]['title']) ?></a></h2>
+                  <h2><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['title']) ?></a></h2>
                   <p><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['url']) ?></a></p>
                 </div>
                 <div class="column column-20">
-                  <? $graph = OpenGraph::fetch("$content[0]['url']"); ?>
+                  <? if ($content[0]['type'] === "image"): ?>
+                  <img src="<?= $content[0]['url'] ?>">
+                  <? else: ?>
+                  <? $graph = OpenGraph::fetch($content[0]['url']); ?>
+                  <? if (!is_null($graph->image)): ?>
                   <img src="<?= $graph->image ?>">
+                  <? else: ?>
+                  <img src="/images/sample.jpg">
+                  <? endif; ?>
+                  <? endif; ?>
                 </div>
             </div>
             <div class="row">
