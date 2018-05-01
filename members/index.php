@@ -53,6 +53,9 @@ require_once(dirname(__FILE__) . '/.././lib/members/index.php');
           <form action="/members/" method="post" class="url_form container">
             <fieldset>
               <label for="urlField">url</label>
+              <? if (isset($_SESSION['error']['url'])): ?>
+              <p style="color:red"><?= $_SESSION['error']['url'] ?></p>
+              <? endif; ?>
               <input type="text" name="url" placeholder="http://pupel.com" id="urlField">
               <label for="commentField">Comment</label>
               <input type="text" name="comment" placeholder="" id="commentField"></textarea>
