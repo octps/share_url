@@ -3,6 +3,8 @@ require_once(dirname(__FILE__) . '/../db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
   session_start();
+  $token = md5(uniqid(rand(), true));
+  $_SESSION['token'] = $token;
   $contents = search::get();
 }
 
@@ -17,6 +19,14 @@ class search {
       include (dirname(__FILE__) . '/../../404.php');
       exit;
     };
+
+    if (!isset($get['token'])
+      || $get['token'] !== $_SESSION['token']
+    ) {
+        unset($_SESSION['token']);
+        header("location:/404.php");
+        exit;
+    }
 
     try {
       $dbh->beginTransaction();

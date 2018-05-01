@@ -1,8 +1,11 @@
 <?php
 require_once(dirname(__FILE__) . '/../db.php');
 
+session_start();
+  
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
-  session_start();
+  $token = md5(uniqid(rand(), true));
+  $_SESSION['token'] = $token;
   $contents = url::get();
 }
 

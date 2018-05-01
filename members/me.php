@@ -31,6 +31,7 @@ require_once(dirname(__FILE__) . '/.././lib/members/me.php');
             <form action="/search/" method="GET" class="row">
               <p class="column column-80"><input class="text" type="text" name="q" value="" placeholder=""></p>
               <p class="column column-10"><input class="submit" type="submit" value="search"></p>
+              <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
             </form>
             <? if (isset($_SESSION['user_id'])): ?>
             <div class="float-right">
@@ -57,6 +58,7 @@ require_once(dirname(__FILE__) . '/.././lib/members/me.php');
               <div class="float-right return_user_top">
                 <a href="/members/?id=<?= $_SESSION['user_id'] ?>"><?= h($user[0]['screen_name']) ?>のページへ戻る</a>
               </div>
+              <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
             </fieldset>
           </form>
         </div>

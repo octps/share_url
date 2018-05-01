@@ -1,16 +1,19 @@
 <?php
 require_once(dirname(__FILE__) . '/../db.php');
 
+session_start();
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
+  $token = md5(uniqid(rand(), true));
+  $_SESSION['token'] = $token;
   $user = me::get();
 } else if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $contents = me::put();
 }
 
+
 class me {
 
   public static function get() {
-    session_start();
     $dbh = Db::getInstance();
 
     // quuery id 、つまりmemberがいない時の処理
@@ -31,10 +34,17 @@ class me {
   }
 
   public static function put() {
-    session_start();
     unset($_SESSION["error"]);
     $dbh = Db::getInstance();
 
+    if (!isset($post['token'])
+      || $post['token'] !== $_SESSION['token']
+    ) {
+        unset($_SESSION['token']);
+        header("location:/404.php");
+        exit;
+    }
+      
     $post = $_POST;
     if (!isset($post['name'])) {
       header("HTTP/1.1 404 Not Found");

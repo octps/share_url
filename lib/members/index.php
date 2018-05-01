@@ -1,7 +1,11 @@
 <?php
 require_once(dirname(__FILE__) . '/../db.php');
 
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
+  $token = md5(uniqid(rand(), true));
+  $_SESSION['token'] = $token;
   $contents = members::get();
   $screen_name = $contents['screen_name'];
   unset($contents['screen_name']);
@@ -12,8 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 class members {
 
   public static function post() {
-    session_start();
-
     unset($_SESSION['error']);
     unset($_SESSION['error']['url']);
     unset($_SESSION['post']);
@@ -29,6 +31,14 @@ class members {
       include (dirname(__FILE__) . '/../../404.php');
       exit;
     };
+
+    if (!isset($post['token'])
+      || $post['token'] !== $_SESSION['token']
+    ) {
+        unset($_SESSION['token']);
+        header("location:/404.php");
+        exit;
+    }
 
     $error = array();
     if ($post['url'] == "") {
@@ -158,7 +168,6 @@ class members {
   }
 
   public static function get() {
-    session_start();
     $get = $_GET;
     $dbh = Db::getInstance();
 

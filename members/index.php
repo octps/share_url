@@ -32,6 +32,7 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
             <form action="/search/" method="GET" class="row">
               <p class="column column-80"><input class="text" type="text" name="q" value="" placeholder=""></p>
               <p class="column column-10"><input class="submit" type="submit" value="search"></p>
+              <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
             </form>
             <? if (isset($_SESSION['user_id'])): ?>
             <div class="float-right">
@@ -63,6 +64,7 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
               <input class="" type="submit" value="登録する">
               <div class="float-right change_name">
                 <a href="/members/me.php">change name</a>
+              <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
               </div>
             </fieldset>
           </form>
