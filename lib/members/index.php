@@ -20,7 +20,7 @@ class members {
     $post = $_POST;
     $back_url = "/members/?id=" . $_SESSION['user_id'];
 
-    // ¥Ğ¥ê¥Ç©`¥£¥·¥ç¥ó
+    // ãƒãƒªãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³
     if (!isset($post['url']) || !isset($post['comment'])) {
       header("HTTP/1.1 404 Not Found");
       include (dirname(__FILE__) . '/../../404.php');
@@ -29,7 +29,7 @@ class members {
 
     $error = array();
     if ($post['url'] == "") {
-      $error['url'] = "url¤Ï±Øíší—Ä¿¤Ç¤¹";
+      $error['url'] = "urlã¯å¿…é ˆé …ç›®ã§ã™ã€‚";
     }
 
     if (!empty($error)) {
@@ -43,21 +43,21 @@ class members {
     {
       $url = $post['url'];
     } else {
-      $error['url'] = "url¤ÎĞÎÊ½¤¬Õı¤·¤¯¤¢¤ê¤Ş¤»¤ó¡£";
+      $error['url'] = "urlã®å½¢å¼ãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“ã€‚";
       $_SESSION['error']['url'] = $error['url'];
       header("location:$back_url");
       exit;
     }
 
-    // ¥³¥á¥ó¥È¤¬¿Õ¤À¤Ã¤¿¤é¡¢...¤Ë¤¹¤ë
+    // commentãŒç©ºã ã£ãŸã‚‰...ã‚’å…¥ã‚Œã‚‹
     if ($post['comment'] == "") {
-      $post['comment'] = "..."
+      $post['comment'] = "...";
     }
 
-    // DB¤ËµÇåh¤¹¤ë
+    // DBç™»éŒ²
     $dbh = Db::getInstance();
 
-    //µÇåh¤µ¤ì¤Æ¤¤¤ëurl¤«´_ÕJ¤¹¤ë
+    //urlãŒã‚ã‚‹ã‹ç¢ºèª
     $url_insert_flag = false;
     $sql = "select * from urls where url = :url";
 
@@ -69,19 +69,19 @@ class members {
       $dbh->commit();
     } catch (Exception $e) {
       $dbh->rollBack();
-      echo "ÀıÍâ¥­¥ã¥Ã¥Á£º", $e->getMessage(), "\n";
+      echo "ä¾‹å¤–ã‚­ãƒ£ãƒƒãƒï¼š", $e->getMessage(), "\n";
     }
     $url_array = $stmt->fetchAll();
     if (!empty($url_array)) {
-      $url_id = $url_array[0]['id']; // $url¤Îid·¬ºÅ¤òÈ¡µÃ
+      $url_id = $url_array[0]['id']; // $url_idã‚’è¨­å®š
     } else {
       $url_insert_flag = true;
     }
 
-    // url ¤¬µÇåh¤µ¤ì¤Æ¤¤¤Ê¤¤ˆöºÏ¤Ï¡¢title¤òÈ¡µÃ¤·¤Æ¡¢insert
+    // url ãƒ•ãƒ©ã‚°ãŒtrueã ã£ãŸã‚‰insert
     if ($url_insert_flag === true) {
 
-      // file_get_contets¤Î¥¨¥é©`ÖÆÓù£¨200¤«´_ÕJ£©
+      // file_get_contetsã§statuscodeã®ç¢ºèª
       $context = stream_context_create(array(
           'http' => array('ignore_errors' => true)
       ));
@@ -90,17 +90,17 @@ class members {
       preg_match('/HTTP\/1\.[0|1|x] ([0-9]{3})/', $http_response_header[0], $matches);
       $status_code = $matches[1];
       if ($status_code != '200') {
-        $error['url'] = "url¤¬Õı³£¤ËÈ¡µÃ¤Ç¤­¤Ş¤»¤ó"
+        $error['url'] = "urlãŒæ­£ã—ãå–å¾—ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚";
         $_SESSION['error']['url'] = $error['url'];
         header("location:$back_url");
         exit;
       }
 
-      // title¤ÎÈ¡µÃ
+      // titleã®å–å¾—
       if (preg_match('/<title>(.*?)<\/title>/i', mb_convert_encoding($response, 'UTF-8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS'), $result)) {
         $title = $result[1];
       } else {
-        $title = $url; //TITLE¥¿¥°¤¬´æÔÚ¤·¤Ê¤¤ˆöºÏ¤Ïurl¤òtitle¤Ë¤¹¤ë¡£
+        $title = $url; //titleãŒãªã‹ã£ãŸã‚‰ã€urlã‚’titleã«è¨­å®š
       }
 
       $sql = "insert into urls (url, title, created_at) values (:url, :title, null):";
@@ -111,16 +111,16 @@ class members {
         $stmt->bindParam(':url', $url, PDO::PARAM_STR);
         $stmt->bindParam(':title', $title, PDO::PARAM_STR);
         $stmt->execute();
-        $url_id = $dbh->lastInsertId('id'); // $url¤Îid·¬ºÅ¤òÈ¡µÃ
+        $url_id = $dbh->lastInsertId('id'); // $url_idã‚’è¨­å®š
         $dbh->commit();
       } catch (Exception $e) {
         $dbh->rollBack();
-        echo "ÀıÍâ¥­¥ã¥Ã¥Á£º", $e->getMessage(), "\n";
+        echo "ä¾‹å¤–ã‚­ãƒ£ãƒƒãƒï¼š", $e->getMessage(), "\n";
       }
     }
 
-    // comment¤Î¥¤¥ó¥µ©`¥È
-    $sql = "inser into comments (member_id, url_id, comment, created_at) values (:member_id, :url_id, :comment, null);";
+    // commentã®ã‚¤ãƒ³ã‚µãƒ¼ãƒˆ
+    $sql = "insert into comments (member_id, url_id, comment, created_at) values (:member_id, :url_id, :comment, null);";
     try {
       $dbh->beginTransaction();
       $stmt = $dbh -> prepare ($sql);
@@ -131,7 +131,7 @@ class members {
       $dbh->commit();
     } catch (Exception $e) {
       $dbh->rollBack();
-      echo "ÀıÍâ¥­¥ã¥Ã¥Á£º", $e->getMessage(), "\n";
+      echo "ä¾‹å¤–ã‚­ãƒ£ãƒƒãƒï¼š", $e->getMessage(), "\n";
     }
 
     header("location:$back_url");
@@ -151,7 +151,7 @@ class members {
       exit;
     };
 
-    // quuery id ¡¢¤Ä¤Ş¤êmember¤¬¤¤¤Ê¤¤•r¤Î„IÀí
+    // quuery id ã€ã¤ã¾ã‚ŠmemberãŒã„ãªã„æ™‚ã®å‡¦ç†
     
     try {
       $dbh->beginTransaction();
@@ -161,7 +161,7 @@ class members {
       $dbh->commit();
     } catch (Exception $e) {
       $dbh->rollBack();
-      echo "ÀıÍâ¥­¥ã¥Ã¥Á£º", $e->getMessage(), "\n";
+      echo "ä¾‹å¤–ã‚­ãƒ£ãƒƒãƒï¼š", $e->getMessage(), "\n";
     }
     $memberCheck = $stmt->fetchAll();
     if (empty($memberCheck)) {
@@ -171,10 +171,10 @@ class members {
     }
 
     // todo
-    // ¥í¥°¥¤¥ó¤·¤Æ¤¤¤ë¤È•r¤È¤·¤Æ¤¤¤Ê¤¤•r¤ÎÌõ¼şÎÄ»¯
-    // session¤Ç·Öáª
+    // ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ã„ã‚‹ã¨æ™‚ã¨ã—ã¦ã„ãªã„æ™‚ã®æ¡ä»¶æ–‡åŒ–
+    // sessionã§åˆ†å²
     // if ($_SESSION)
-    // where¾ä¤òßmºÏ
+    // whereå¥ã‚’é©åˆ
     $sql = "select u.id as url_id, u.url, u.title, c.id as comment_id, c.member_id, c.comment, t.id as twitter_id, t.screen_name, c.created_at from urls as u join comments as c on u.id = c.url_id join twitter_users as t on c.member_id = t.id where member_id = :member_id order by c.created_at DESC;";
 
     try {
@@ -185,7 +185,7 @@ class members {
       $dbh->commit();
     } catch (Exception $e) {
       $dbh->rollBack();
-      echo "ÀıÍâ¥­¥ã¥Ã¥Á£º", $e->getMessage(), "\n";
+      echo "ä¾‹å¤–ã‚­ãƒ£ãƒƒãƒï¼š", $e->getMessage(), "\n";
     }
     $results = $stmt->fetchAll();
     foreach ($results as $result) {

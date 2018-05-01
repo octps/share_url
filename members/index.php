@@ -1,5 +1,6 @@
 <?php
 require_once(dirname(__FILE__) . '/.././lib/members/index.php');
+require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
 // echo ("<pre>");
 // print_r($contents);
 // echo ("</pre>");
@@ -79,7 +80,8 @@ require_once(dirname(__FILE__) . '/.././lib/members/index.php');
                   <p><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['url']) ?></a></p>
                 </div>
                 <div class="column column-20">
-                  <img src="/images/sample.jpg">
+                  <? $graph = OpenGraph::fetch("$content[0]['url']"); ?>
+                  <img src="<?= $graph->image ?>">
                 </div>
             </div>
             <div class="row">
