@@ -45,14 +45,13 @@ class members {
     } else {
       $error['url'] = "urlの形式が正しくありません。";
       $_SESSION['error']['url'] = $error['url'];
-      $back_url = "/members/?id=" . $_SESSION['user_id'];
       header("location:$back_url");
       exit;
     }
 
     // コメントが空だったら、...にする
     if ($post['comment'] == "") {
-      $commet = "..."
+      $post['comment'] = "..."
     }
 
     // DBに登録する
@@ -93,7 +92,6 @@ class members {
       if ($status_code != '200') {
         $error['url'] = "urlが正常に取得できません"
         $_SESSION['error']['url'] = $error['url'];
-        $back_url = "/members/?id=" . $_SESSION['user_id'];
         header("location:$back_url");
         exit;
       }
@@ -113,11 +111,27 @@ class members {
         $stmt->bindParam(':url', $url, PDO::PARAM_STR);
         $stmt->bindParam(':title', $title, PDO::PARAM_STR);
         $stmt->execute();
+        $url_id = $dbh->lastInsertId('id'); // $urlのid番号を取得
         $dbh->commit();
       } catch (Exception $e) {
         $dbh->rollBack();
         echo "例外キャッチ：", $e->getMessage(), "\n";
       }
+    }
+
+    // commentのインサート
+    $sql = "inser into comments (member_id, url_id, comment, created_at) values (:member_id, :url_id, :comment, null);";
+    try {
+      $dbh->beginTransaction();
+      $stmt = $dbh -> prepare ($sql);
+      $stmt->bindParam(':member_id', $_SESSION['user_id'], PDO::PARAM_STR);
+      $stmt->bindParam(':url_id', $url_id, PDO::PARAM_STR);
+      $stmt->bindParam(':comment', $post['comment'], PDO::PARAM_STR);
+      $stmt->execute();
+      $dbh->commit();
+    } catch (Exception $e) {
+      $dbh->rollBack();
+      echo "例外キャッチ：", $e->getMessage(), "\n";
     }
 
     header("location:$back_url");
