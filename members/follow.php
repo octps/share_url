@@ -52,6 +52,7 @@ require_once(dirname(__FILE__) . '/../lib/members/follow.php');
                 <input type="hidden" name="unfollow" value="delete">
                 <input type="hidden" name="follow_id" value="<?= $follower['id'] ?>">
                 <input type="submit" value="フォローをはずす">
+                <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
               </form>
             </div>
             <? endforeach; ?>
