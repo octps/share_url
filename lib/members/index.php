@@ -205,10 +205,35 @@ class members {
 
     // todo
     // ログインしていると時としていない時の条件文化
+    // ログインしている時は、followerの情報が同時に表示される
     // sessionで分岐
     // if ($_SESSION)
     // where句を適合
-    $sql = "select u.id as url_id, u.url, u.title, u.type, c.id as comment_id, c.member_id, c.comment, t.id as twitter_id, t.screen_name, c.created_at from urls as u join comments as c on u.id = c.url_id join twitter_users as t on c.member_id = t.id where member_id = :member_id order by c.created_at DESC;";
+
+    // ログインしていて自分のページの時
+    $sql_where = "where member_id = :member_id";
+
+    if ($get['id'] == $_SESSION['user_id']) {
+      try {
+        $dbh->beginTransaction();
+        $stmt = $dbh -> prepare ("select * from follows where member_id = :member_id");
+        $stmt->bindParam(':member_id', $_SESSION['user_id'], PDO::PARAM_STR);
+        $stmt->execute();
+        $dbh->commit();
+      } catch (Exception $e) {
+        $dbh->rollBack();
+        echo "例外キャッチ：", $e->getMessage(), "\n";
+      }
+      $followers = $stmt->fetchAll();
+      foreach (@$followers ?: array() as $follower) {
+        $sql_where .= " OR member_id = " . $follower['follows_member_id'];
+      }
+    }
+
+    $sql_1 = "select u.id as url_id, u.url, u.title, u.type, c.id as comment_id, c.member_id, c.comment, t.id as twitter_id, t.screen_name, c.created_at from urls as u join comments as c on u.id = c.url_id join twitter_users as t on c.member_id = t.id ";
+    $sql_2 = $sql_where;
+    $sql_3 = " order by c.created_at DESC;";
+    $sql = $sql_1 . $sql_2 . $sql_3;
 
     try {
       $dbh->beginTransaction();
