@@ -2,6 +2,14 @@
 require_once(dirname(__FILE__) . '/../db.php');
 
 session_start();
+
+//ログインチェック
+if (!isset($_SESSION['user_id'])) {
+  unset($_SESSION['token']);
+  header("location:/404.php");
+  exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
   $token = md5(uniqid(rand(), true));
   $_SESSION['token'] = $token;

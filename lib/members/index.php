@@ -213,7 +213,7 @@ class members {
     // ログインしていて自分のページの時
     $sql_where = "where member_id = :member_id";
 
-    if ($get['id'] == $_SESSION['user_id']) {
+    if ($get['id'] == @$_SESSION['user_id']) {
       try {
         $dbh->beginTransaction();
         $stmt = $dbh -> prepare ("select * from follows where member_id = :member_id");
