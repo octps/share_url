@@ -68,7 +68,7 @@ require_once(dirname(__FILE__) . '/.././lib/url/index.php');
         </div>
       </div>
       <footer class="row in-center">
-        <div class="column footer t-center">footer</div>
+<? require_once(dirname(__FILE__) . '/.././lib/common/footer.php'); ?>
       </footer>
     </div>
   </body>
