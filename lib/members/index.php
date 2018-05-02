@@ -8,7 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
   $_SESSION['token'] = $token;
   $contents = members::get();
   $screen_name = $contents['screen_name'];
+  $follow_id = $contents['follow_id'];
   unset($contents['screen_name']);
+  unset($contents['follow_id']);
 } else if ($_SERVER['REQUEST_METHOD'] === "POST") {
   members::post();
 }
@@ -150,18 +152,20 @@ class members {
     }
 
     // commentのインサート
-    $sql = "insert into comments (member_id, url_id, comment, created_at) values (:member_id, :url_id, :comment, null);";
-    try {
-      $dbh->beginTransaction();
-      $stmt = $dbh -> prepare ($sql);
-      $stmt->bindParam(':member_id', $_SESSION['user_id'], PDO::PARAM_STR);
-      $stmt->bindParam(':url_id', $url_id, PDO::PARAM_STR);
-      $stmt->bindParam(':comment', $post['comment'], PDO::PARAM_STR);
-      $stmt->execute();
-      $dbh->commit();
-    } catch (Exception $e) {
-      $dbh->rollBack();
-      echo "例外キャッチ：", $e->getMessage(), "\n";
+    if ($url_id != 0) {
+      $sql = "insert into comments (member_id, url_id, comment, created_at) values (:member_id, :url_id, :comment, null);";
+      try {
+        $dbh->beginTransaction();
+        $stmt = $dbh -> prepare ($sql);
+        $stmt->bindParam(':member_id', $_SESSION['user_id'], PDO::PARAM_STR);
+        $stmt->bindParam(':url_id', $url_id, PDO::PARAM_STR);
+        $stmt->bindParam(':comment', $post['comment'], PDO::PARAM_STR);
+        $stmt->execute();
+        $dbh->commit();
+      } catch (Exception $e) {
+        $dbh->rollBack();
+        echo "例外キャッチ：", $e->getMessage(), "\n";
+      }
     }
 
     header("location:$back_url");
@@ -221,10 +225,24 @@ class members {
       // $result['opg'] = OpenGraph::fetch('$result["url"]');
       $contents[$result["url_id"]][] = $result;
     }
-    $contents['screen_name'] = @$results[0]['screen_name'];
-    if (empty($results)) {
-      $contents['screen_name'] = $_SESSION['access_token']['screen_name'];
+
+    //ユーザー名の取得
+    $sql = "select * from twitter_users where id = :id;";
+
+    try {
+      $dbh->beginTransaction();
+      $stmt = $dbh -> prepare ($sql);
+      $stmt->bindParam(':id', $get['id'], PDO::PARAM_STR);
+      $stmt->execute();
+      $dbh->commit();
+    } catch (Exception $e) {
+      $dbh->rollBack();
+      echo "例外キャッチ：", $e->getMessage(), "\n";
     }
+    $member_results = $stmt->fetchAll();
+
+    $contents['screen_name'] = @$member_results[0]['screen_name'];
+    $contents['follow_id'] = @$member_results[0]['id'];
     return $contents;
   }
 
