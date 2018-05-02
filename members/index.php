@@ -50,7 +50,7 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
         </div>
         <? endif; ?>
         <div class="url_form_wrapper">
-          <h1 class="h2"><?= h($screen_name) ?></a><span>のページ</span></h1>
+          <h1 class="h2"><?= h($screen_name) ?></a><span>のページ</span><?= (isset($_SESSION['user_id']) && @$_SESSION['user_id'] != $_GET['id']) ?  "<span>followする</span>" : '' ?></h1>
           <? if (@$_GET['id'] == @$_SESSION['user_id']): ?>
           <form action="/members/" method="post" class="url_form container">
             <fieldset>
