@@ -296,3 +296,58 @@ h2 {
 .search .h2 {
   margin-top: 15px;
 }
+
+.other_comments {
+  text-align: right;
+}
+/* スマホ(640px)以上 */
+@media screen and (max-width: 640px) {
+    .other .h1,
+    .root h1 {
+        margin-bottom: 0;
+    }
+    .row .column.column-60,
+    .row .column.column-80,
+    .title.column.column-75 {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 1rem;
+    }
+    .title.column.column-75 p {
+      width:100%;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .row .column .column-10 {
+      margin-bottom: 0; 
+    }
+    .main .container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .container {
+      padding-left: 0;
+      padding-right: 0;      
+    }
+    .comments,
+    .comments a {
+      width:100%;
+      word-wrap: break-word;
+    }
+    h2 {
+      width:100%;
+      overflow: visible;
+      overflow-wrap : break-word;
+      white-space: normal;
+      font-size: 2rem;
+    }
+}
+ 
+/* タブレット(1280px)以上 */
+@media (min-width: 80.0rem) {
+    .other .h1 {
+        margin-bottom: 0;
+    }
+}
+ 

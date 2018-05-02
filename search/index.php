@@ -15,6 +15,7 @@ require_once(dirname(__FILE__) . '/.././lib/search/index.php');
 
     <!-- css framework読み込み（スタイリングのため） -->
     <title>puprl <?= h($get['q']) ?>の検索結果 | webでブックマークするサービス</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.0.3/milligram.min.css">
     <link rel="stylesheet" href="/css/index.css">
   </head>
@@ -66,7 +67,7 @@ require_once(dirname(__FILE__) . '/.././lib/search/index.php');
               <? foreach(@$content ?: array() as $val):?>
               <p><a class="user" href="/members/?id=<?= h($val['member_id']) ?>"><?= h($val['screen_name']) ?></a><?= h($val['comment']) ?><span class="time">(<?= h($val['created_at']) ?>)</span></p>
               <? endforeach; ?>
-              <span><a href="/url/?id=<?= h($content[0]['url_id'])?>"><?= h($content[0]['title']) ?>へのコメントを見る</a></span>
+              <p class="other_comments"><a href="/url/?id=<?= h($content[0]['url_id'])?>">他のコメントを見る</a></p>
             </div>
           </div>
           <? endforeach; ?>

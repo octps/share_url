@@ -10,13 +10,14 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=0.5,user-scalable=yes,initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="puprlはwebでブックマークするサービスです。">
     <meta name="author" content="">
     <link rel="icon" href="/images/favicon.ico">
 
     <!-- css framework読み込み（スタイリングのため） -->
     <title>puprl <?= h($screen_name) ?>のページ | webでブックマークするサービス</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.0.3/milligram.min.css">
     <link rel="stylesheet" href="/css/index.css">
   </head>
@@ -36,7 +37,7 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
             </form>
             <? if (isset($_SESSION['user_id'])): ?>
             <div class="float-right">
-              <a class="to_mypage" href="/members/?id=<?= $_SESSION['user_id'] ?>">mypageへ</a>
+              <a class="to_mypage" href="/members/?id=<?= $_SESSION['user_id'] ?>">mypage</a>
               <a class="to_logout" href="/logout.php">logout</a>
             </div>
             <? endif; ?>
@@ -86,7 +87,7 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
             <div class="titles row">
                 <div class="title column column-75">
                   <h2><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['title']) ?></a></h2>
-                  <p><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['url']) ?></a></p>
+                  <!-- <p><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['url']) ?></a></p> -->
                 </div>
                 <div class="column column-20">
                   <? if ($content[0]['type'] === "image"): ?>
@@ -107,7 +108,7 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
               <? $i = 0; foreach(@$content ?: array() as $val):?>
               <p><a class="user" href="/members/?id=<?= h($val['member_id']) ?>"><?= h($val['screen_name']) ?></a><?= h($val['comment']) ?><span class="time">(<?= h($val['created_at']) ?>)</span></p>
               <? endforeach; ?>
-              <span><a href="/url/?id=<?= h($content[0]['url_id']) ?>"><?= h($content[0]['title']) ?>へのコメントを見る</a></span>
+              <p class="other_comments"><a href="/url/?id=<?= h($content[0]['url_id']) ?>">他のコメントを見る</a></p>
             </div>
           </div>
           <? endforeach; ?>
