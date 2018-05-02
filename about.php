@@ -47,17 +47,18 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
         <div class="main container">
           <h2>このサイトについて</h2>
           <div>
-          <p>puprl（パップル） - webの棚 - はソーシャルブックマークサービスです。<br>
-          インターネット上で見つけたurlを保存できます。<br>
-          urlにはコメントがつけられます。</p>
-          <hr>
-          <p>リンクは全ての人に公開されます。<br>
-          リンクを登録するには、twitterでログインしてください。<br>
-          （ユーザー名の変更もできるので、twitterのフォロワーに知られたくない方はユーザー名を変更してください。）</p>
+            <p>puprl（パップル） - webの棚 - はソーシャルブックマークサービスです。<br>
+            インターネット上で見つけたurlを保存できます。<br>
+            urlにはコメントがつけられます。</p>
+            <hr>
+            <p>リンクは全ての人に公開されます。<br>
+            リンクを登録するには、twitterでログインしてください。<br>
+            （ユーザー名の変更もできるので、twitterのフォロワーに知られたくない方はユーザー名を変更してください。）</p>
+          </div>
         </div>
       </div>
       <footer class="row in-center">
-<? require_once(dirname(__FILE__) . '/.././lib/common/footer.php'); ?>
+<? require_once(dirname(__FILE__) . '/./lib/common/footer.php'); ?>
       </footer>
     </div>
   </body>
