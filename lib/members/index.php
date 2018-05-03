@@ -203,8 +203,8 @@ class members {
       exit;
     }
 
-    $page = $get['page'];
-    if (!isset($get['page']) || !is_numeric($get["page"])) {
+    $page = @$get['page'];
+    if (!isset($get['page']) || !is_numeric($get["page"]) || @$get['page'] == false) {
       $page = 0;
     }
 
@@ -240,9 +240,9 @@ class members {
     $offset = $limit * $page;
 
     // urlを取得
-    $sql_1 = "select distinct u.id, u.url, u.title, u.type, c.member_id from urls as u join comments as c on u.id = c.url_id "; 
+    $sql_1 = "select distinct u.id, u.url, u.title, u.type, c.created_at from urls as u join comments as c on u.id = c.url_id "; 
     $sql_2 = $sql_where;
-    $sql_3 = " order by c.created_at DESC  limit :offset, :limit;";
+    $sql_3 = " order by c.created_at DESC limit :offset, :limit;";
     $sql = $sql_1 . $sql_2 . $sql_3;
 
     try {
@@ -259,8 +259,13 @@ class members {
     }
     $url_results = $stmt->fetchAll();
 
+    //重複削除
+    foreach(@$url_results ?: array() as $url_result) {
+      $url_results_array[$url_result['id']] = $url_result;
+    }
+
     $sql_where_urls = "";
-    foreach (@$url_results ?: array() as $url_result) {
+    foreach (@$url_results_array ?: array() as $url_result) {
       $sql_where_urls .= "OR url_id = " . $url_result["id"] . " ";
     }
     $sql_where_urls = ltrim($sql_where_urls, 'OR');
@@ -292,7 +297,7 @@ class members {
       }
     }
 
-    $contents["urls"] = $url_results;
+    $contents["urls"] = $url_results_array;
     $contents["comments"] = @$commets_result_array;
 
     // foreach ($results as $result) {
