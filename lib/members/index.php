@@ -149,6 +149,20 @@ class members {
         $dbh->rollBack();
         echo "例外キャッチ：", $e->getMessage(), "\n";
       }
+    } else { // falseだったらupdate
+      $sql = "update urls set updated_at = null where id = :id;";
+
+      try {
+        $dbh->beginTransaction();
+        $stmt = $dbh -> prepare ($sql);
+        $stmt->bindParam(':id', $url_id, PDO::PARAM_STR);
+        $stmt->execute();
+        $dbh->commit();
+      } catch (Exception $e) {
+        $dbh->rollBack();
+        echo "例外キャッチ：", $e->getMessage(), "\n";
+      }
+
     }
 
     // commentのインサート
@@ -240,9 +254,9 @@ class members {
     $offset = $limit * $page;
 
     // urlを取得
-    $sql_1 = "select distinct u.id, u.url, u.title, u.type, c.member_id from urls as u join comments as c on u.id = c.url_id "; 
+    $sql_1 = "select distinct u.id, u.url, u.title, u.type from urls as u join comments as c on u.id = c.url_id "; 
     $sql_2 = $sql_where;
-    $sql_3 = " order by c.created_at DESC  limit :offset, :limit;";
+    $sql_3 = " order by u.updated_at DESC limit :offset, :limit;";
     $sql = $sql_1 . $sql_2 . $sql_3;
 
     try {
@@ -258,7 +272,6 @@ class members {
       echo "例外キャッチ：", $e->getMessage(), "\n";
     }
     $url_results = $stmt->fetchAll();
-
     $sql_where_urls = "";
     foreach (@$url_results ?: array() as $url_result) {
       $sql_where_urls .= "OR url_id = " . $url_result["id"] . " ";
