@@ -217,8 +217,8 @@ class members {
       exit;
     }
 
-    $page = $get['page'];
-    if (!isset($get['page']) || !is_numeric($get["page"])) {
+    $page = @$get['page'];
+    if (!isset($get['page']) || !is_numeric($get["page"]) || @$get['page'] == false) {
       $page = 0;
     }
 
@@ -247,8 +247,8 @@ class members {
       foreach (@$followers ?: array() as $follower) {
         $sql_where .= " OR member_id = " . $follower['follows_member_id'];
       }
-      $sql_where .= ")";
     }
+    $sql_where .= ")";
 
     $limit = 2;
     $offset = $limit * $page;

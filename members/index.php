@@ -107,23 +107,23 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
               <? $i = 0; foreach(@$contents['comments'][$url['id']] ?: array() as $val):?>
               <p><a class="user" href="/members/?id=<?= h($val['member_id']) ?>"><?= h($val['screen_name']) ?></a><?= h($val['comment']) ?><span class="time">(<?= h($val['created_at']) ?>)</span></p>
               <? endforeach; ?>
-              <p class="other_comments"><a href="/url/?id=<?= h($content[0]['url_id']) ?>">他のコメントを見る</a></p>
+              <p class="other_comments"><a href="/url/?id=<?= h($url['id']) ?>">他のコメントを見る</a></p>
             </div>
           </div>
           <? endforeach; ?>
         </div>
         <?
-          $page = $_GET['page'];
-          if (!isset($_GET['page']) || !is_numeric($_GET["page"])) {
+          $page = @$_GET['page'];
+          if (!isset($_GET['page']) || !is_numeric($_GET["page"]) || @$_GET['page'] == false) {
             $page = 0;
           } 
         ?>
         <p class="next_page">
         <? if ($page != 0): ?>
-        <a class="next_page_button button" href="/members/?id=1001&page=<?= $page - 1 ?>">前のページ</a>
+        <a class="next_page_button button" href="/members/?id=<?= $_GET['id'] ?>&page=<?= $page - 1 ?>">前のページ</a>
         <? endif; ?>
         <? if (!empty($contents['urls'])): ?>
-        <a class="next_page_button button" href="/members/?id=1001&page=<?= $page + 1 ?>">次のページ</a>
+        <a class="next_page_button button" href="/members/?id=<?= $_GET['id'] ?>&page=<?= $page + 1 ?>">次のページ</a>
         <? endif; ?>
       </div>
       <footer class="row in-center">
