@@ -29,7 +29,7 @@ require_once(dirname(__FILE__) . '/.././lib/search/index.php');
           </div>
           <div class="column column-60">
             <form action="/search/" method="GET" class="row">
-              <p class="column column-80"><input class="text" type="text" name="q" value="" placeholder=""></p>
+              <p class="column column-80"><input class="text" type="text" name="q" required value="" placeholder=""></p>
               <p class="column column-10"><input class="submit" type="submit" value="seach"></p>
               <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
             </form>

@@ -56,8 +56,9 @@ a:hover {
 h2 {
   font-size:2.8rem;
   overflow:hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  /*text-overflow: ellipsis;*/
+  /*white-space: nowrap;*/
+  overflow-wrap: break-word;
 }
 
 
@@ -67,6 +68,8 @@ h2 {
   overflow:hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  border-top: 1px dotted #c5c5c5;
+  padding-top: 3px;
 }
 
 .bookmark {
@@ -202,6 +205,7 @@ h2 {
   margin-bottom:2rem;
   margin-top:0;
   display: block;
+
 }
 
 .other .h1 span,
@@ -230,6 +234,13 @@ h2 {
 .other .title span {
   font-size: 1.6rem;
   margin-left: 1rem;
+}
+
+.other h1 {
+  overflow:hidden;
+  /*text-overflow: ellipsis;*/
+  /*white-space: nowrap;*/
+  overflow-wrap: break-word;
 }
 
 /* users */
@@ -297,8 +308,9 @@ h2 {
   margin-top: 15px;
 }
 
-.other_comments {
+p.other_comments {
   text-align: right;
+  border-top: none;
 }
 /* スマホ(640px)以上 */
 @media screen and (max-width: 640px) {

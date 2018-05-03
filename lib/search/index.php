@@ -12,6 +12,7 @@ class search {
 
   public static function get() {
     $get = $_GET;
+    unset($_SESSION['error']);
     $dbh = Db::getInstance();
 
     if (!isset($get['q'])) {
@@ -19,16 +20,6 @@ class search {
       include (dirname(__FILE__) . '/../../404.php');
       exit;
     };
-
-    // if (!isset($get['token'])
-    //   || ($get['token'] != $_SESSION['token'])
-    // ) {
-    //   var_dump($get['token']);
-    //   var_dump($_SESSION['token']);
-    //   unset($_SESSION['token']);
-    //   header("location:/404.php");
-    //   exit;
-    // }
 
     try {
       $dbh->beginTransaction();

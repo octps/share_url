@@ -26,7 +26,7 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
           </div>
           <div class="column column-60">
             <form action="/search/" method="GET" class="row">
-              <p class="column column-80"><input class="text" type="text" name="q" value="" placeholder=""></p>
+              <p class="column column-80"><input class="text" type="text" name="q" required value="" placeholder=""></p>
               <p class="column column-10"><input class="submit" type="submit" value="search"></p>
               <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
             </form>
@@ -51,7 +51,7 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
             <div class="titles row">
                 <div class="title column column-75">
                   <h2><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['title']) ?></a></h2>
-                  <p><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['url']) ?></a></p>
+                  <!-- <p><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['url']) ?></a></p> -->
                 </div>
                 <div class="column column-20">
                   <img src="/images/sample.jpg">
@@ -66,7 +66,7 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
               <? $i++; ?>
               <? endif; ?>
               <? endforeach; ?>
-              <span><a href="/url/?id=<?= h($content[0]['url_id'])?>">続きを見る</a></span>
+              <p class="other_comments"><a href="/url/?id=<?= h($content[0]['url_id']) ?>">他のコメントを見る</a></p>
             </div>
           </div>
           <? endforeach; ?>
