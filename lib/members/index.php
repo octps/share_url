@@ -203,6 +203,11 @@ class members {
       exit;
     }
 
+    $page = $get['page'];
+    if (!isset($get['page']) || !is_numeric($get["page"])) {
+      $page = 0;
+    }
+
     // todo
     // ログインしていると時としていない時の条件文化
     // ログインしている時は、followerの情報が同時に表示される
@@ -211,7 +216,7 @@ class members {
     // where句を適合
 
     // ログインしていて自分のページの時
-    $sql_where = "where member_id = :member_id";
+    $sql_where = "where (member_id = :member_id";
 
     if ($get['id'] == @$_SESSION['user_id']) {
       try {
@@ -228,28 +233,109 @@ class members {
       foreach (@$followers ?: array() as $follower) {
         $sql_where .= " OR member_id = " . $follower['follows_member_id'];
       }
+      $sql_where .= ")";
     }
 
-    $sql_1 = "select u.id as url_id, u.url, u.title, u.type, c.id as comment_id, c.member_id, c.comment, t.id as twitter_id, t.screen_name, c.created_at from urls as u join comments as c on u.id = c.url_id join twitter_users as t on c.member_id = t.id ";
+    $limit = 2;
+    $offset = $limit * $page;
+
+    // urlを取得
+    $sql_1 = "select distinct u.id, u.url, u.title, u.type, c.member_id from urls as u join comments as c on u.id = c.url_id "; 
     $sql_2 = $sql_where;
-    $sql_3 = " order by c.created_at DESC;";
+    $sql_3 = " order by c.created_at DESC  limit :offset, :limit;";
     $sql = $sql_1 . $sql_2 . $sql_3;
 
     try {
       $dbh->beginTransaction();
       $stmt = $dbh -> prepare ($sql);
       $stmt->bindParam(':member_id', $get['id'], PDO::PARAM_STR);
+      $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+      $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
       $stmt->execute();
       $dbh->commit();
     } catch (Exception $e) {
       $dbh->rollBack();
       echo "例外キャッチ：", $e->getMessage(), "\n";
     }
-    $results = $stmt->fetchAll();
-    foreach ($results as $result) {
-      // $result['opg'] = OpenGraph::fetch('$result["url"]');
-      $contents[$result["url_id"]][] = $result;
+    $url_results = $stmt->fetchAll();
+
+    $sql_where_urls = "";
+    foreach (@$url_results ?: array() as $url_result) {
+      $sql_where_urls .= "OR url_id = " . $url_result["id"] . " ";
     }
+    $sql_where_urls = ltrim($sql_where_urls, 'OR');
+    $sql_where_urls = "(" . $sql_where_urls . ")";
+
+
+    if (!empty($url_results)) {
+      $sql_1 = "select c.id, t.screen_name, c.comment, c.member_id, c.url_id, c.created_at, u.id from comments as c join urls as u on c.url_id = u.id join twitter_users as t on c.member_id = t.id ";
+      $sql_2 = $sql_where;
+      $sql_3 = " AND ";
+      $sql_4 = $sql_where_urls;
+      $sql_5 = " order by c.created_at DESC;";
+
+      $sql = $sql_1 . $sql_2 . $sql_3 . $sql_4 . $sql_5;
+
+      try {
+        $dbh->beginTransaction();
+        $stmt = $dbh -> prepare ($sql);
+        $stmt->bindParam(':member_id', $get['id'], PDO::PARAM_STR);
+        $stmt->execute();
+        $dbh->commit();
+      } catch (Exception $e) {
+        $dbh->rollBack();
+        echo "例外キャッチ：", $e->getMessage(), "\n";
+      }
+      $commets_results = $stmt->fetchAll();
+      foreach($commets_results as $commets_result) {
+        $commets_result_array[$commets_result['url_id']][] = $commets_result;
+      }
+    }
+
+    $contents["urls"] = $url_results;
+    $contents["comments"] = @$commets_result_array;
+
+    // foreach ($results as $result) {
+    //   print_r($result);
+    //   $sql_comments = "select * from comments where url_id = :url_id;";
+    //   try {
+    //     $dbh->beginTransaction();
+    //     $stmt = $dbh -> prepare ($sql);
+    //     $stmt->bindParam(':url_id', $result['id'], PDO::PARAM_STR);
+    //     $stmt->execute();
+    //     $dbh->commit();
+    //   } catch (Exception $e) {
+    //     $dbh->rollBack();
+    //     echo "例外キャッチ：", $e->getMessage(), "\n";
+    //   }
+    //   $results_comments = $stmt->fetchAll();
+    //   $contents[$result["url_id"]][] = $result;
+    //   $contents[$result["url_id"]]["comments"] = $results_comments;
+    // }
+
+    //
+    // $sql_1 = "select u.id as url_id, u.url, u.title, u.type, c.id as comment_id, c.member_id, c.comment, t.id as twitter_id, t.screen_name, c.created_at from urls as u join comments as c on u.id = c.url_id join twitter_users as t on c.member_id = t.id ";
+    // $sql_2 = $sql_where;
+    // $sql_3 = " order by c.created_at DESC limit :offset, :limit;";
+    // $sql = $sql_1 . $sql_2 . $sql_3;
+
+    // try {
+    //   $dbh->beginTransaction();
+    //   $stmt = $dbh -> prepare ($sql);
+    //   $stmt->bindParam(':member_id', $get['id'], PDO::PARAM_STR);
+    //   $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    //   $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    //   $stmt->execute();
+    //   $dbh->commit();
+    // } catch (Exception $e) {
+    //   $dbh->rollBack();
+    //   echo "例外キャッチ：", $e->getMessage(), "\n";
+    // }
+    // $results = $stmt->fetchAll();
+    // foreach ($results as $result) {
+    //   // $result['opg'] = OpenGraph::fetch('$result["url"]');
+    //   $contents[$result["url_id"]][] = $result;
+    // }
 
     //ユーザー名の取得
     $sql = "select * from twitter_users where id = :id;";
@@ -268,6 +354,7 @@ class members {
 
     $contents['screen_name'] = @$member_results[0]['screen_name'];
     $contents['follow_id'] = @$member_results[0]['id'];
+
     return $contents;
   }
 

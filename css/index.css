@@ -16,6 +16,10 @@ body {
   text-align: center;
 }
 
+.footer a {
+  font-size:90%;
+}
+
 a {
   color:#4d7dca;
   /*text-decoration: underline;*/
@@ -106,7 +110,8 @@ h2 {
 .header_inner input,
 .url_form input,
 .follower .button,
-.followers  input[type='submit'] {
+.followers  input[type='submit'],
+.next_page_button {
   background-color:#fff;
   margin-bottom: 0;
   color:#4d7dca;
@@ -114,7 +119,8 @@ h2 {
 .header_inner input[type='submit']:hover,
 .url_form input[type='submit']:hover,
 .follower .button,
-.followers  input[type='submit']:hover {
+.followers  input[type='submit']:hover,
+.next_page_button:hover {
   background-color:#4d7dca;
 }
 
@@ -123,7 +129,8 @@ h2 {
 .url_form input[type='text'],
 .url_form input[type='submit'],
 .follower .button,
-.followers  input[type='submit'] {
+.followers  input[type='submit'],
+.next_page_button {
   border-color:#4d7dca;
   font-size: .8rem;
   height: 2.8rem;
@@ -311,6 +318,10 @@ h2 {
 p.other_comments {
   text-align: right;
   border-top: none;
+}
+
+.next_page {
+  text-align: center;
 }
 /* スマホ(640px)以上 */
 @media screen and (max-width: 640px) {
