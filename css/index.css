@@ -111,8 +111,7 @@ h2 {
 .url_form input,
 .follower .button,
 .followers  input[type='submit'],
-.next_page_button,
-.url_form_wrapper  input[type='submit']{
+.next_page_button {
   background-color:#fff;
   margin-bottom: 0;
   color:#4d7dca;
@@ -121,8 +120,7 @@ h2 {
 .url_form input[type='submit']:hover,
 .follower .button,
 .followers  input[type='submit']:hover,
-.next_page_button:hover,
-.url_form_wrapper  input[type='submit']:hover {
+.next_page_button:hover {
   background-color:#4d7dca;
 }
 
@@ -132,8 +130,7 @@ h2 {
 .url_form input[type='submit'],
 .follower .button,
 .followers  input[type='submit'],
-.next_page_button,
-.url_form_wrapper  input[type='submit'] {
+.next_page_button {
   border-color:#4d7dca;
   font-size: .8rem;
   height: 2.8rem;
@@ -142,8 +139,7 @@ h2 {
 }
 
 .follower .button,
-.followers  input[type='submit']:hover,
-.url_form_wrapper  input[type='submit']:hover {
+.followers  input[type='submit']:hover {
   color:#fff;
 }
 

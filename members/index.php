@@ -107,14 +107,14 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
               <? $i = 0; foreach(@$contents['comments'][$url['id']] ?: array() as $val):?>
               <p><a class="user" href="/members/?id=<?= h($val['member_id']) ?>"><?= h($val['screen_name']) ?></a><?= h($val['comment']) ?><span class="time">(<?= h($val['created_at']) ?>)</span></p>
               <? endforeach; ?>
-              <p class="other_comments"><a href="/url/?id=<?= h($url['id']) ?>">他のコメントを見る</a></p>
+              <p class="other_comments"><a href="/url/?id=<?= h($content[0]['url_id']) ?>">他のコメントを見る</a></p>
             </div>
           </div>
           <? endforeach; ?>
         </div>
         <?
-          $page = @$_GET['page'];
-          if (!isset($_GET['page']) || !is_numeric($_GET["page"]) || @$_GET['page'] == false) {
+          $page = $_GET['page'];
+          if (!isset($_GET['page']) || !is_numeric($_GET["page"])) {
             $page = 0;
           } 
         ?>
