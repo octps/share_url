@@ -14,10 +14,13 @@ require_once(dirname(__FILE__) . '/.././lib/search/index.php');
     <link rel="icon" href="/images/favicon.ico">
 
     <!-- css framework読み込み（スタイリングのため） -->
-    <title>puprl <?= h($get['q']) ?>の検索結果 | webでブックマークするサービス</title>
+    <title>puprl（パップル） <?= h($get['q']) ?>の検索結果 | webでブックマークするサービス</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.0.3/milligram.min.css">
     <link rel="stylesheet" href="/css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/puprl.js"></script>
+
   </head>
 
   <body class="other user search">
@@ -58,7 +61,11 @@ require_once(dirname(__FILE__) . '/.././lib/search/index.php');
                   <p><a href="<?= h($url['url']) ?>" target="_blank"><?= h($url['url']) ?></a></p>
                 </div>
                 <div class="column column-20">
-                  <img src="/images/sample.jpg">
+                  <? if ($url['type'] === "image"): ?>
+                  <img src="<?= $url['url'] ?>">
+                  <? else: ?>
+                  <img class="opg" opghtml="<?= $url['url'] ?>" src="/images/loading.gif">
+                  <? endif; ?>
                 </div>
             </div>
             <div class="row">

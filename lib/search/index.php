@@ -26,7 +26,7 @@ class search {
       $page = 0;
     }
 
-    $limit = 2;
+    $limit = 8;
     $offset = $limit * $page;
 
     // urlを取得

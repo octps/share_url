@@ -11,7 +11,7 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
     <link rel="icon" href="/images/favicon.ico">
 
     <!-- css framework読み込み（スタイリングのため） -->
-    <title>puprl | webでブックマークするサービス</title>
+    <title>puprl（パップル）について | webでブックマークするサービス</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.0.3/milligram.min.css">
     <link rel="stylesheet" href="/css/index.css">
   </head>
@@ -47,13 +47,13 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
         <div class="main container">
           <h2>このサイトについて</h2>
           <div>
-            <p>puprl（パップル） - webの棚 - はソーシャルブックマークサービスです。<br>
-            インターネット上で見つけたurlを保存できます。<br>
+            <p>puprl（パップル）はwebでブックマークするサービス（ソーシャルブックマークサービス）です。</p>
+            <p>インターネット上で見つけたurlを保存できます。<br>
             urlにはコメントがつけられます。</p>
-            <hr>
+            <p>フォローすると、フォローした人のコメントもmypage上で確認できます</p>
             <p>リンクは全ての人に公開されます。<br>
             リンクを登録するには、twitterでログインしてください。<br>
-            （ユーザー名の変更もできるので、twitterのフォロワーに知られたくない方はユーザー名を変更してください。）</p>
+            ユーザー名の変更もできるので、twitterのフォロワーに知られたくない方はユーザー名を変更してください。</p>
           </div>
         </div>
       </div>

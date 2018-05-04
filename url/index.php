@@ -11,10 +11,12 @@ require_once(dirname(__FILE__) . '/.././lib/url/index.php');
     <link rel="icon" href="/images/favicon.ico">
 
     <!-- css framework読み込み（スタイリングのため） -->
-    <title>puprl ★タイトル★のコメント | webでブックマークするサービス</title>
+    <title>puprl（パップル） <?= h($content[0]['title']) ?>へのコメント | webでブックマークするサービス</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.0.3/milligram.min.css">
     <link rel="stylesheet" href="/css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/puprl.js"></script>
   </head>
 
   <body class="other">
@@ -54,7 +56,11 @@ require_once(dirname(__FILE__) . '/.././lib/url/index.php');
                   <p><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['url']) ?></a></p>
                 </div>
                 <div class="column column-20">
-                  <img src="/images/sample.jpg">
+                  <? if ($content[0]['url'] === "image"): ?>
+                  <img src="<?= $content[0]['url'] ?>">
+                  <? else: ?>
+                  <img class="opg" opghtml="<?= $content[0]['url'] ?>" src="/images/loading.gif">
+                  <? endif; ?>
                 </div>
             </div>
             <div class="row">

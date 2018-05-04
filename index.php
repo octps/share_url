@@ -11,10 +11,13 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
     <link rel="icon" href="/images/favicon.ico">
 
     <!-- css framework読み込み（スタイリングのため） -->
-    <title>puprl | webでブックマークするサービス</title>
+    <title>puprl（パップル） | webでブックマークするサービス</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.0.3/milligram.min.css">
     <link rel="stylesheet" href="/css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/puprl.js"></script>
+
   </head>
 
   <body>
@@ -53,7 +56,11 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
                   <h2><a href="<?= h($url['url']) ?>" target="_blank"><?= h($url['title']) ?></a></h2>
                 </div>
                 <div class="column column-20">
-                  <img src="/images/sample.jpg">
+                  <? if ($url['type'] === "image"): ?>
+                  <img src="<?= $url['url'] ?>">
+                  <? else: ?>
+                  <img class="opg" opghtml="<?= $url['url'] ?>" src="/images/loading.gif">
+                  <? endif; ?>
                 </div>
             </div>
             <div class="row">

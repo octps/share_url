@@ -10,7 +10,7 @@ require_once(dirname(__FILE__) . '/../lib/members/follow.php');
     <meta name="author" content="">
     <link rel="icon" href="/images/favicon.ico">
 
-    <title>puprl <?= $contents['me'][0]['screen_name'] ?>がフォローしているユーザー | webでブックマークするサービス</title>
+    <title>puprl（パップル） <?= $contents['me'][0]['screen_name'] ?>がフォローしているユーザー | webでブックマークするサービス</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.0.3/milligram.min.css">
     <link rel="stylesheet" href="/css/index.css">

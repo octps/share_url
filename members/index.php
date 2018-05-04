@@ -16,10 +16,13 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
     <link rel="icon" href="/images/favicon.ico">
 
     <!-- css framework読み込み（スタイリングのため） -->
-    <title>puprl <?= h($screen_name) ?>のページ | webでブックマークするサービス</title>
+    <title>puprl（パップル） <?= h($screen_name) ?>のページ | webでブックマークするサービス</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.0.3/milligram.min.css">
     <link rel="stylesheet" href="/css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/puprl.js"></script>
+
   </head>
 
   <body class="other members">
@@ -92,12 +95,7 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
                   <? if ($url['type'] === "image"): ?>
                   <img src="<?= $url['url'] ?>">
                   <? else: ?>
-                  <? $graph = OpenGraph::fetch($url['url']); ?>
-                  <? if (!is_null($graph->image)): ?>
-                  <img src="<?= $graph->image ?>">
-                  <? else: ?>
-                  <img src="/images/sample.jpg">
-                  <? endif; ?>
+                  <img class="opg" opghtml="<?= $url['url'] ?>" src="/images/loading.jpg">
                   <? endif; ?>
                 </div>
             </div>

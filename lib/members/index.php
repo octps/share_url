@@ -250,7 +250,7 @@ class members {
     }
     $sql_where .= ")";
 
-    $limit = 2;
+    $limit = 8;
     $offset = $limit * $page;
 
     // urlを取得
