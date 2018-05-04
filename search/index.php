@@ -50,12 +50,12 @@ require_once(dirname(__FILE__) . '/.././lib/search/index.php');
         <? endif; ?>
         <div class="main container">
           <h1 class="h2"><a href=""><?= h($_GET['q']) ?></a><span>の検索結果</span></h1>
-          <? foreach(@$contents ?: array() as $content): ?>
+          <? foreach(@$contents["urls"] ?: array() as $url): ?>
           <div class="bookmark">
             <div class="titles row">
                 <div class="title column column-75">
-                  <h2><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['title']) ?></a></h2>
-                  <p><a href="<?= h($content[0]['url']) ?>" target="_blank"><?= h($content[0]['url']) ?></a></p>
+                  <h2><a href="<?= h($url['url']) ?>" target="_blank"><?= h($url['title']) ?></a></h2>
+                  <p><a href="<?= h($url['url']) ?>" target="_blank"><?= h($url['url']) ?></a></p>
                 </div>
                 <div class="column column-20">
                   <img src="/images/sample.jpg">
@@ -64,14 +64,26 @@ require_once(dirname(__FILE__) . '/.././lib/search/index.php');
             <div class="row">
             </div>
             <div class="comments">
-              <? foreach(@$content ?: array() as $val):?>
+              <? foreach(@$contents['comments'][$url['id']] ?: array() as $val):?>
               <p><a class="user" href="/members/?id=<?= h($val['member_id']) ?>"><?= h($val['screen_name']) ?></a><?= h($val['comment']) ?><span class="time">(<?= h($val['created_at']) ?>)</span></p>
               <? endforeach; ?>
-              <p class="other_comments"><a href="/url/?id=<?= h($content[0]['url_id'])?>">他のコメントを見る</a></p>
             </div>
           </div>
           <? endforeach; ?>
         </div>
+        <?
+          $page = @$_GET['page'];
+          if (!isset($_GET['page']) || !is_numeric($_GET["page"]) || @$_GET['page'] == false) {
+            $page = 0;
+          } 
+        ?>
+        <p class="next_page">
+        <? if (@$page != 0): ?>
+        <a class="next_page_button button" href="/search/?q=<?= $_GET['q'] ?>&page=<?= $page - 1 ?>">前のページ</a>
+        <? endif; ?>
+        <? if (!empty($contents['urls'])): ?>
+        <a class="next_page_button button" href="/search/?q=<?= $_GET['q'] ?>&page=<?= $page + 1 ?>">次のページ</a>
+        <? endif; ?></p>
       </div>
       <footer class="row in-center">
 <? require_once(dirname(__FILE__) . '/.././lib/common/footer.php'); ?>
