@@ -119,12 +119,12 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
           } 
         ?>
         <p class="next_page">
-        <? if ($page != 0): ?>
+        <? if (@$page != 0): ?>
         <a class="next_page_button button" href="/members/?id=<?= $_GET['id'] ?>&page=<?= $page - 1 ?>">前のページ</a>
         <? endif; ?>
         <? if (!empty($contents['urls'])): ?>
         <a class="next_page_button button" href="/members/?id=<?= $_GET['id'] ?>&page=<?= $page + 1 ?>">次のページ</a>
-        <? endif; ?>
+        <? endif; ?></p>
       </div>
       <footer class="row in-center">
 <? require_once(dirname(__FILE__) . '/.././lib/common/footer.php'); ?>
