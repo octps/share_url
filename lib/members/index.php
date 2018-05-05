@@ -345,6 +345,25 @@ class members {
     $contents["urls"] = $url_results;
     $contents["comments"] = @$commets_result_array;
 
+
+    //他メンバーページでのfollowの制御
+    try {
+      $dbh->beginTransaction();
+      $stmt = $dbh -> prepare ("select * from follows where member_id = :member_id");
+      $stmt->bindParam(':member_id', $_SESSION['user_id'], PDO::PARAM_STR);
+      $stmt->execute();
+      $dbh->commit();
+    } catch (Exception $e) {
+      $dbh->rollBack();
+      echo "例外キャッチ：", $e->getMessage(), "\n";
+    }
+    $followers_in_id = $stmt->fetchAll();    
+
+    foreach(@$followers_in_id ?: array() as $follower) {
+      $followers_in_ids[$follower["follows_member_id"]] = $follower;
+    }
+    $contents["followers"] = @$followers_in_ids;
+
     // foreach ($results as $result) {
     //   print_r($result);
     //   $sql_comments = "select * from comments where url_id = :url_id;";
