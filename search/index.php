@@ -7,6 +7,15 @@ require_once(dirname(__FILE__) . '/.././lib/search/index.php');
 <!doctype html>
 <html lang="ja">
   <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118752986-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-118752986-1');
+</script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=0.5,user-scalable=yes,initial-scale=1.0" />
     <meta name="description" content="puprlはwebでブックマークするサービスです。">
