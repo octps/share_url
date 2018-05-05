@@ -19,6 +19,9 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
   <body>
     <div class="root">
       <header class="header">
+        <div class="row lead">
+          <p class="column">puprl（パップル） | webでブックマークするサービス</p>
+        </div>
         <div class="row header_inner">
           <div class="column column-30 t-center">
             <h1><a href="/"><img src="/images/logo.svg" alt="puprlロゴ"></a></h1>
@@ -51,8 +54,8 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
             <p>インターネット上で見つけたurlを保存できます。<br>
             urlにはコメントがつけられます。</p>
             <p>フォローすると、フォローした人のコメントもmypage上で確認できます</p>
-            <p>リンクは全ての人に公開されます。<br>
-            リンクを登録するには、twitterでログインしてください。<br>
+            <p>ブックマークしたurlは全ての人に公開されます。<br>
+            urlを登録するには、twitterでログインしてください。<br>
             ユーザー名の変更もできるので、twitterのフォロワーに知られたくない方はユーザー名を変更してください。</p>
           </div>
         </div>

@@ -43,6 +43,7 @@ class me {
 
   public static function put() {
     unset($_SESSION["error"]);
+    $post = $_POST;
     $dbh = Db::getInstance();
 
     if (!isset($post['token'])
@@ -53,7 +54,7 @@ class me {
         exit;
     }
       
-    $post = $_POST;
+
     if (!isset($post['name'])) {
       header("HTTP/1.1 404 Not Found");
       include (dirname(__FILE__) . '/../../404.php');

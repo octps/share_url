@@ -11,11 +11,48 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
   $follow_id = $contents['follow_id'];
   unset($contents['screen_name']);
   unset($contents['follow_id']);
-} else if ($_SERVER['REQUEST_METHOD'] === "POST") {
+} else if ($_SERVER['REQUEST_METHOD'] === "POST" && !isset($_POST['method']) ) {
   members::post();
+} else if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['method']) && $_POST['method'] == "delete" ) {
+  members::delete();
 }
 
 class members {
+
+  public static function delete() {
+    $post = $_POST;
+    $back_url = "/members/?id=" . $_SESSION['user_id'];
+    if (!isset($post['comment_id']) || !isset($post['method'])) {
+      header("HTTP/1.1 404 Not Found");
+      include (dirname(__FILE__) . '/../../404.php');
+      exit;
+    };
+
+    if (!isset($post['token'])
+      || $post['token'] !== $_SESSION['token']
+    ) {
+        unset($_SESSION['token']);
+        header("location:/404.php");
+        exit;
+    }
+
+    $dbh = Db::getInstance();
+    $sql = "delete from comments where id = :id AND member_id = :member_id";
+
+    try {
+      $dbh->beginTransaction();
+      $stmt = $dbh -> prepare ($sql);
+      $stmt->bindParam(':id', $post['comment_id'], PDO::PARAM_INT);
+      $stmt->bindParam(':member_id', $_SESSION['user_id'], PDO::PARAM_INT);
+      $stmt->execute();
+      $dbh->commit();
+    } catch (Exception $e) {
+      $dbh->rollBack();
+      echo "例外キャッチ：", $e->getMessage(), "\n";
+    }
+
+    header("location:$back_url");
+  }
 
   public static function post() {
     unset($_SESSION['error']);
@@ -281,7 +318,7 @@ class members {
 
 
     if (!empty($url_results)) {
-      $sql_1 = "select c.id, t.screen_name, c.comment, c.member_id, c.url_id, c.created_at, u.id from comments as c join urls as u on c.url_id = u.id join twitter_users as t on c.member_id = t.id ";
+      $sql_1 = "select c.id as commet_id, t.screen_name, c.comment, c.member_id, c.url_id, c.created_at, u.id from comments as c join urls as u on c.url_id = u.id join twitter_users as t on c.member_id = t.id ";
       $sql_2 = $sql_where;
       $sql_3 = " AND ";
       $sql_4 = $sql_where_urls;

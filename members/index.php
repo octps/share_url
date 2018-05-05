@@ -28,6 +28,9 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
   <body class="other members">
     <div class="">
       <header class="header">
+        <div class="row lead">
+          <p class="column">puprl（パップル） | webでブックマークするサービス</p>
+        </div>
         <div class="row header_inner">
           <div class="column column-30 t-center">
             <span class="h1"><a href="/"><img src="/images/logo.svg" alt="puprlロゴ"></a></span>
@@ -95,7 +98,7 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
                   <? if ($url['type'] === "image"): ?>
                   <img src="<?= $url['url'] ?>">
                   <? else: ?>
-                  <img class="opg" opghtml="<?= $url['url'] ?>" src="/images/loading.jpg">
+                  <img class="opg" opghtml="<?= $url['url'] ?>" src="/images/loading.gif">
                   <? endif; ?>
                 </div>
             </div>
@@ -103,7 +106,15 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
             </div>
             <div class="comments">
               <? $i = 0; foreach(@$contents['comments'][$url['id']] ?: array() as $val):?>
-              <p><a class="user" href="/members/?id=<?= h($val['member_id']) ?>"><?= h($val['screen_name']) ?></a><?= h($val['comment']) ?><span class="time">(<?= h($val['created_at']) ?>)</span></p>
+              <div class="comment"><p><a class="user" href="/members/?id=<?= h($val['member_id']) ?>"><?= h($val['screen_name']) ?></a><?= h($val['comment']) ?><span class="time">(<?= h($val['created_at']) ?>)</span></p>
+              <? if (isset($_SESSION['user_id']) && @$_GET['id'] == @$_SESSION['user_id'] && $val['member_id'] == @$_SESSION['user_id']): ?>
+                <form action="/members/" method="POST">
+                  <input type="hidden" name="comment_id" value="<?= $val['commet_id'] ?>">
+                  <input type="hidden" name="method" value="delete">
+                  <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                  <input type="submit" value="コメント削除">
+                </form>
+              <? endif; ?></div>
               <? endforeach; ?>
               <p class="other_comments"><a href="/url/?id=<?= h($url['id']) ?>">他のコメントを見る</a></p>
             </div>

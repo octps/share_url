@@ -26,6 +26,9 @@ require_once(dirname(__FILE__) . '/.././lib/search/index.php');
   <body class="other user search">
     <div class="">
       <header class="header">
+        <div class="row lead">
+          <p class="column">puprl（パップル） | webでブックマークするサービス</p>
+        </div>
         <div class="row header_inner">
           <div class="column column-30 t-center">
             <span class="h1"><a href="/"><img src="/images/logo.svg" alt="puprlロゴ"></a></span>

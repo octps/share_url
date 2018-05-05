@@ -16,8 +16,6 @@ window.ajaxOpg = function() {
 		)
 		.done(function(string){
 			var val = JSON.parse(string);
-			console.log(val.number);
-			console.log(val.image);
 			$(".opg").eq(val.number).attr("src", val.image);
 		})
 	};
