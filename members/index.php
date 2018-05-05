@@ -108,7 +108,7 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
               <? $i = 0; foreach(@$contents['comments'][$url['id']] ?: array() as $val):?>
               <div class="comment"><p><a class="user" href="/members/?id=<?= h($val['member_id']) ?>"><?= h($val['screen_name']) ?></a><?= h($val['comment']) ?><span class="time">(<?= h($val['created_at']) ?>)</span></p>
               <? if (isset($_SESSION['user_id']) && @$_GET['id'] == @$_SESSION['user_id'] && $val['member_id'] == @$_SESSION['user_id']): ?>
-                <form action="/members/" method="POST">
+                <form action="/members/" method="POST" onSubmit="return window.form_submit_check()">
                   <input type="hidden" name="comment_id" value="<?= $val['commet_id'] ?>">
                   <input type="hidden" name="method" value="delete">
                   <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">

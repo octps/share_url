@@ -20,3 +20,12 @@ window.ajaxOpg = function() {
 		})
 	};
 }
+
+window.form_submit_check = function() {
+	if(window.confirm('削除してよろしいですか？')){
+		return true;
+	}
+	else{
+		return false; // 送信を中止
+	}
+};
