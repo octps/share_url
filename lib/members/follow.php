@@ -73,6 +73,25 @@ class follow {
       exit;
     }
 
+    // 重複確認が必要
+    try {
+      $dbh->beginTransaction();
+      $stmt = $dbh -> prepare ("select * from followers where member_id = :member_id AND follows_member_id = :follows_member_id;");
+      $stmt->bindParam(':member_id', $_SESSION['user_id'], PDO::PARAM_STR);
+      $stmt->bindParam(':follows_member_id', $post['follow_id'], PDO::PARAM_STR);
+      $stmt->execute();
+      $dbh->commit();
+    } catch (Exception $e) {
+      $dbh->rollBack();
+      echo "例外キャッチ：", $e->getMessage(), "\n";
+    }
+    $followers_check = $stmt->fetchAll();
+    if (!empty($followers) {
+        header("location:/404.php");
+        exit;
+    }
+
+
     try {
       $dbh->beginTransaction();
       $stmt = $dbh -> prepare ("insert into follows (member_id, follows_member_id, created_at) values (:member_id, :follows_member_id, null);");
