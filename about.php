@@ -19,8 +19,30 @@ require_once(dirname(__FILE__) . '/./lib/index.php');
     <meta name="author" content="">
     <link rel="icon" href="/images/favicon.ico">
 
-    <!-- css framework読み込み（スタイリングのため） -->
-    <title>puprl（パップル）について | webでブックマークするサービス</title>
+<!-- HTML Meta Tags -->
+<title>puprl（パップル）について | webでブックマークするサービス</title>
+<meta name="description" content="puprlはwebでブックマークするサービスです。">
+
+<!-- Google / Search Engine Tags -->
+<meta itemprop="name" content="puprl（パップル）について | webでブックマークするサービス">
+<meta itemprop="description" content="puprlはwebでブックマークするサービスです。">
+<meta itemprop="image" content="https://puprl.com/images/puprl_opg.jpg">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://puprl.com">
+<meta property="og:type" content="website">
+<meta property="og:title" content="puprl（パップル）について | webでブックマークするサービス">
+<meta property="og:description" content="puprlはwebでブックマークするサービスです。">
+<meta property="og:image" content="https://puprl.com/images/puprl_opg.jpg">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="puprl（パップル）について | webでブックマークするサービス">
+<meta name="twitter:description" content="puprlはwebでブックマークするサービスです。">
+<meta name="twitter:image" content="https://puprl.com/images/puprl_opg.jpg">
+
+<!-- Meta Tags Generated via http://heymeta.com -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.0.3/milligram.min.css">
     <link rel="stylesheet" href="/css/index.css">
   </head>
