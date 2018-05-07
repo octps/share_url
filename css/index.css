@@ -408,6 +408,9 @@ p.other_comments {
       white-space: normal;
       font-size: 2rem;
     }
+    .lead p {
+      font-size: 70%;
+    }
 }
  
 /* タブレット(1280px)以上 */
