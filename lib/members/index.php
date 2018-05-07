@@ -145,7 +145,13 @@ class members {
 
       preg_match('/HTTP\/1\.[0|1|x] ([0-9]{3})/', $http_response_header[0], $matches);
       $status_code = $matches[1];
-      if ($status_code != '200') {
+      if ($status_code == '200'
+        || $status_code == '301'
+        || $status_code == '302'
+        || $status_code == '303'
+        || $status_code == '307'
+      ) {
+      } else {
         $error['url'] = "urlが正しく取得できませんでした。";
         $_SESSION['error']['url'] = $error['url'];
         $_SESSION['post']['url'] = $post['url'];
