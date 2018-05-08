@@ -92,6 +92,14 @@ class members {
       exit;
     }
 
+    // https:// か http:// が 頭についていない時にhttp://をつける chromeと同じ挙動
+    if (substr($post['url'], 0 , 8) == "https://"
+     || substr($post['url'], 0 , 7) == "http://")
+    {
+    } else{
+      $post['url'] = "http://" . $post['url'];
+    }
+
     if (filter_var($post['url'], FILTER_VALIDATE_URL)
       && preg_match('|^https?://.*$|', $post['url']))
     {
