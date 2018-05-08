@@ -17,7 +17,15 @@ require_once(dirname(__FILE__) . '/.././lib/url/index.php');
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=0.5,user-scalable=yes,initial-scale=1.0" />
     <meta name="description" content="puprlはwebでブックマークするサービスです。">
     <meta name="author" content="">
-    <link rel="icon" href="/images/favicon.ico">
+<meta name="msapplication-config" content="/images/favicons/browserconfig.xml" />
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#f5deb3">
+<link rel="icon" type="image/x-icon" href="/images/favicons/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+<link rel="mask-icon" href="/images/favicons/safari-icon.svg" color="#555" />
+<link rel="icon" type="image/png" sizes="192x192" href="/images/favicons/android-chrome-192x192.png">
+<link rel="manifest" href="/images/favicons/manifest.json">
 
 <?
 foreach(@$contents ?: array() as $title){
