@@ -31,7 +31,7 @@ class search {
 
     // urlを取得
     $dbh = Db::getInstance();
-    $sql_1 = "select distinct u.id, u.url, u.title, u.type from urls as u join comments as c on u.id = c.url_id where c.comment like :like"; 
+    $sql_1 = "select distinct u.id, u.url, u.title, u.type from urls as u join comments as c on u.id = c.url_id where concat(c.comment, u.title) like :like"; 
     $sql_2 = " order by u.updated_at DESC limit :offset, :limit;";
     $sql = $sql_1 . $sql_2;
 
