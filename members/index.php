@@ -31,7 +31,6 @@ require_once(dirname(__FILE__) . '/.././lib/OpenGraph.php');
 <link rel="icon" type="image/png" sizes="192x192" href="/images/favicons/android-chrome-192x192.png">
 <link rel="manifest" href="/images/favicons/manifest.json">
 
-    <title>puprl（パップル） <?= h($screen_name) ?>のページ | webでブックマークするサービス</title>
 <!-- HTML Meta Tags -->
 <title>puprl（パップル） <?= h($screen_name) ?>のページ | webでブックマークするサービス</title>
 <meta name="description" content="puprlはwebでブックマークするサービスです。">
